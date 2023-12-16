@@ -5,8 +5,12 @@ dotenv.config();
 const app: Express = express();
 const port: string | number = process.env.PORT || 9100;
 
+// template enginge
+app.set("views", "./views");
+app.set("view engine", "pug");
+
 app.use("/", async (req, res) => {
-    res.send("This is tour site!");
+    res.render("client/pages/tours/index");
 });
 
 app.listen(port, () => {
