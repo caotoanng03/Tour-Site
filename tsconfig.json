@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "ES6",
+        "module": "CommonJS",
+        "removeComments": true,  
+        "esModuleInterop": true // using import instead of require
+    }
+}
