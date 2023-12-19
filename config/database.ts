@@ -1,16 +1,24 @@
 import { Sequelize, DataTypes } from "sequelize";
+import dotenv from "dotenv";
 
-export const sequelize = new Sequelize("tour_site", "root", "", {
-    host: "localhost",
-    port: 3306,
-    dialect: "mysql"
-});
+dotenv.config();
 
-export const connect = async (): Promise<void> => {
-    try {
-        await sequelize.authenticate();
-        console.log("Connection has been established successfully.")
-    } catch (error) {
-        console.error("Unable to connect to database: ", error);
-    }
-}
+const sequelize = new Sequelize(
+    process.env.DATABASE_NAME, // database name
+    process.env.DATABASE_USR,   // database usr name
+    process.env.DATABASE_PASSWORD,     // database password
+    {
+        host: process.env.DATABASE_HOST,
+        port: parseInt(process.env.DATABASE_PORT),
+        dialect: "mysql"
+    });
+
+sequelize.authenticate()
+    .then(() => {
+        console.log("Connection has been established successfully.");
+    })
+    .catch(() => {
+        console.log("Unable to connect database!");
+    });
+
+export default sequelize;

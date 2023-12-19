@@ -1,68 +1,57 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../config/database";
+import sequelize from "../config/database";
 
 const Tour = sequelize.define("tour", {
     id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     title: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     code: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.STRING(10)
     },
     images: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.TEXT('long')
     },
     price: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.INTEGER
     },
     discount: {
         type: DataTypes.INTEGER,
-        allowNull: true
     },
     information: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.TEXT('long')
     },
     schedule: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.TEXT('long')
     },
     timeStart: {
-        type: DataTypes.DATE,
-        allowNull: true
+        type: DataTypes.DATE
     },
     stock: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.INTEGER
     },
     status: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.STRING(20)
     },
     position: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        type: DataTypes.INTEGER
     },
     slug: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     deleted: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
         defaultValue: false
     },
     deletedAt: {
-        type: DataTypes.DATE,
-        allowNull: true
+        type: DataTypes.DATE
     },
     // createdAt: {
     //     type: DataTypes.DATE,

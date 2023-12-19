@@ -5,4 +5,9 @@ html
 
     body 
         header
-            h1 Tour List
+            h1 #{pageTitle}
+
+        main 
+            ul 
+                each tour in tours 
+                    li #{tour.title}
