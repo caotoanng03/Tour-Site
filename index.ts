@@ -6,7 +6,10 @@ dotenv.config();
 const app: Express = express();
 const port: string | number = process.env.PORT || 9100;
 
-// template enginge
+// Static files
+app.use(express.static("public"));
+
+// Template enginge
 app.set("views", "./views");
 app.set("view engine", "pug");
 
