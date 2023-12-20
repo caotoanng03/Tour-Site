@@ -1,13 +1,11 @@
-doctype hmtl 
-html 
-    head 
-        title Tour List 
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
-    body 
-        header
-            h1 #{pageTitle}
-
-        main 
-            ul 
-                each tour in tours 
-                    li #{tour.title}
+block main
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head(pageTitle)
+    ul
+        each tour in tours 
+            li #{tour.title}
