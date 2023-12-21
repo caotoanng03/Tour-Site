@@ -6,6 +6,15 @@ block main
         .row 
             .col-12 
                 +box-head(pageTitle)
-    ul
-        each tour in tours 
-            li #{tour.title}
+        .row 
+            each item in tours 
+                .col-6.mb-3 
+                    div(class="card")
+                        img(src=item.image)
+                        div(class="card-body")
+                            h5(class="card-title") #{item.title}
+                            b(class="mr-2 mb-2") #{item.price_special.toLocaleString()} VND
+                            del(class="mb-2") #{item.price.toLocaleString()} VND
+                            p(class="font-weight-bold") 
+                                <i class="fa-solid fa-tag"></i> #{item.discount}%
+                            a(href=`/tours/detail/${item.slug}` class="btn btn-primary") Detail
