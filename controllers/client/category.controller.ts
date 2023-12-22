@@ -12,8 +12,6 @@ export const index = async (req: Request, res: Response): Promise<void> => {
         raw: true
     });
 
-    console.log(categories);
-
     res.render('client/pages/categories/index', {
         pageTitle: "Categories List",
         categories

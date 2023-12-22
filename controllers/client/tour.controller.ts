@@ -41,3 +41,12 @@ export const getToursBaseOnCategrorySlug = async (req: Request, res: Response): 
         res.redirect(`/categories`)
     }
 };
+
+// [GET] /tours/detail/:slugTour
+export const detail = async (req: Request, res: Response): Promise<void> => {
+    const slugTour: string = req.params.slugTour;
+
+    res.render(`client/pages/tours/detail`, {
+        pageTile: 'Tour Detail',
+    })
+};
