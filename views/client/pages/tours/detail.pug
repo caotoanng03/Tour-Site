@@ -8,9 +8,20 @@ block main
                 if(tour.images)
                     .col-6
                         .inner-images
-                            each link in tour.images
-                                .inner-image
-                                    img(src=link)
+                            div(class="swiper imagesMain")
+                                div(class="swiper-wrapper")
+                                    each link in tour.images
+                                        div(class="swiper-slide")
+                                            .inner-image
+                                                img(src=link)
+                                div(class="swiper-button-next")
+                                div(class="swiper-button-prev")
+                            div(class="swiper imagesThumb")
+                                div(class="swiper-wrapper")
+                                    each link in tour.images
+                                        div(class="swiper-slide")
+                                            .inner-image
+                                                img(src=link)
 
 
                 .col-6

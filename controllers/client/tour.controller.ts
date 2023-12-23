@@ -61,8 +61,6 @@ export const detail = async (req: Request, res: Response): Promise<void> => {
 
     tour["special_price"] = tour["price"] * (1 - tour["discount"] / 100);
 
-    console.log(tour);
-
     res.render(`client/pages/tours/detail`, {
         pageTile: 'Tour Detail',
         tour
