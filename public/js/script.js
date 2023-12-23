@@ -17,6 +17,26 @@ var imagesMain = new Swiper(".imagesMain", {
 });
 // End Slide Tour Detail
 
+// Alert Add Cart Successfully
+const showAlertAddToCartSuccess = () => {
+    const alertElement = document.querySelector("[alert-add-cart-success]");
+    if (alertElement) {
+        alertElement.classList.remove("alert-hidden");
+
+        setTimeout(() => {
+            alertElement.classList.add("alert-hidden");
+        }, 3000);
+
+        const closeAlert = alertElement.querySelector("[close-alert]");
+        if (closeAlert) {
+            closeAlert.addEventListener("click", () => {
+                alertElement.classList.add("alert-hidden");
+            });
+        }
+    }
+}
+// End Alert Add Cart Successfully
+
 // Cart
 const cart = localStorage.getItem("cart");
 
@@ -48,6 +68,8 @@ if (formAddToCart) {
                 cart[indexExistTour].quantity += quantity;
             };
             localStorage.setItem("cart", JSON.stringify(cart));
+
+            showAlertAddToCartSuccess();
         };
     });
 };
