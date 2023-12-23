@@ -1,38 +1,39 @@
 extends ../../layouts/default.pug
+include ../../mixins/moment.pug
 
 block main 
     .tour-detail 
         .container.my-3
             .row
-                .col-6
-                    .inner-images
-                        .inner-image
-                            img(src="https://backend.daca.vn/assets/tour/images/tour-ha-long.jpg")
-                        .inner-image
-                            img(src="https://backend.daca.vn/assets/tour/images/tour-ha-long-2.jpg")
-                        .inner-image
-                            img(src="https://backend.daca.vn/assets/tour/images/tour-ha-long-3.jpg")
+                if(tour.images)
+                    .col-6
+                        .inner-images
+                            each link in tour.images
+                                .inner-image
+                                    img(src=link)
+
 
                 .col-6
-                    .inner-title Tour Hạ Long
+                    .inner-title= tour.title
 
                     .inner-barcode
-                        <i class="fa-solid fa-barcode"></i> Tour code: TOUR000001
+                        <i class="fa-solid fa-barcode"></i> Tour code: #{tour.code}
 
                     .inner-time-start
-                        <i class="fa-solid fa-calendar-days"></i> Departure schedule: 08:30 - 15/01/2023
+                        <i class="fa-solid fa-calendar-days"></i> Departure schedule: 
+                            +formatDateTime(tour.timeStart)
 
                     .inner-stock
-                        <i class="fa-solid fa-person-walking-luggage"></i> Left: 5 slots
+                        <i class="fa-solid fa-person-walking-luggage"></i> Left: #{tour.stock} slots
 
-                    .inner-price-special 400,000VND
-                    .inner-price 500,000VND
+                    .inner-price-special #{tour.special_price.toLocaleString()}VND
+                    .inner-price #{tour.price.toLocaleString()}VND
                     .inner-percent 
-                        <i class="fa-solid fa-tag"></i> Discount 20%
+                        <i class="fa-solid fa-tag"></i> Discount #{tour.discount}%
 
                     form(
                         form-add-to-cart
-                        tour-id=`:tourId`
+                        tour-id=tour.id
                     )
                         input(
                             class="form-control mb-2"
@@ -40,7 +41,7 @@ block main
                             name="quantity"
                             value="1"
                             min="1"
-                            max="10"
+                            max=tour.stock
                         )
                         button(
                             type="submit"
@@ -53,10 +54,10 @@ block main
                 .inner-infomation
                     .inner-label Tour Information
                     .inner-text
-                    | Nội dung Thông tin tour...
+                    | !{tour.information}
 
                 .col-12
                 .inner-infomation
                     .inner-label Tour Schedule
                     .inner-text
-                    | Nội dung Lịch trình tour...
+                    | !{tour.schedule}

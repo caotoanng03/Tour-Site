@@ -46,7 +46,25 @@ export const getToursBaseOnCategrorySlug = async (req: Request, res: Response): 
 export const detail = async (req: Request, res: Response): Promise<void> => {
     const slugTour: string = req.params.slugTour;
 
+    const tour = await Tour.findOne({
+        where: {
+            slug: slugTour,
+            deleted: false,
+            status: "active"
+        },
+        raw: true
+    });
+
+    if (tour["images"]) {
+        tour["images"] = JSON.parse(tour["images"]);
+    };
+
+    tour["special_price"] = tour["price"] * (1 - tour["discount"] / 100);
+
+    console.log(tour);
+
     res.render(`client/pages/tours/detail`, {
         pageTile: 'Tour Detail',
+        tour
     })
 };
