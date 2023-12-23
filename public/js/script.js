@@ -37,6 +37,19 @@ const showAlertAddToCartSuccess = () => {
 }
 // End Alert Add Cart Successfully
 
+// Display minicart icon on header
+const showMiniCart = () => {
+    const miniCart = document.querySelector("[mini-cart]");
+    if (miniCart) {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        const totalQuantity = cart.reduce((acc, elem) => acc + elem.quantity, 0);
+
+        miniCart.innerText = totalQuantity;
+    };
+};
+showMiniCart();
+// End display minicart icon on header
+
 // Cart
 const cart = localStorage.getItem("cart");
 
@@ -69,6 +82,7 @@ if (formAddToCart) {
             };
             localStorage.setItem("cart", JSON.stringify(cart));
 
+            showMiniCart();
             showAlertAddToCartSuccess();
         };
     });

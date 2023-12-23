@@ -38,6 +38,10 @@ main {
     margin-left: 20px;
 }
 
+.header .inner-menu>ul>li>a {
+    color: #333;
+}
+
 /* End Header */
 
 
