@@ -7,6 +7,10 @@ dotenv.config();
 const app: Express = express();
 const port: string | number = process.env.PORT || 9100;
 
+// body-parser instead
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Static files
 app.use(express.static("public"));
 

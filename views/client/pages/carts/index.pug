@@ -19,31 +19,9 @@ block main
                             th Quantity
                             th Total
                             th Action
-                    tbody
-                        tr
-                            td 1
-                            td
-                                img(src="https://backend.daca.vn/assets/tour/images/tour-ha-long.jpg" alt="Tour Hạ Long" width="80px")
-                            td
-                                a(href=`/tours/detail/:slugTour`) Tour Hạ Long
-                            td 1,200,000đ
-                            td
-                                input(
-                                type="number"
-                                name="quantity"
-                                value="1"
-                                min="1"
-                                    item-id=":tourId"
-                                style="width: 60px"
-                                )
-                            td 1,200,000đ
-                            td
-                                button(
-                                btn-delete=":tourId"
-                                class="btn btn-danger"
-                                ) Remove
+                    tbody(tour-list)
 
-                h5(class="text-right mb-4") Order Summary: <span total-price>0</span>đ
+                h5(class="text-right mb-4") Order Summary: <span total-order>0</span>VND
 
         .row
             .col-12
@@ -81,3 +59,6 @@ block main
                             type="submit"
                             class="btn btn-success btn-block"
                         ) RESERVE NOW
+
+block script 
+    script(src="/js/cart.js")
