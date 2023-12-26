@@ -85,31 +85,35 @@ if (formOrder) {
         const phone = event.target.elements.phone.value;
         const note = event.target.elements.note.value;
 
-        const data = {
-            info: {
-                fullName,
-                phone,
-                note
-            },
-            cart
-        };
+        if (cart) {
+            const data = {
+                info: {
+                    fullName,
+                    phone,
+                    note
+                },
+                cart
+            };
 
-        fetch(`/order`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.code == 200) {
-                    localStorage.setItem("cart", JSON.stringify([]));
-                    window.location.href = `/cart/success?orderCode=${data.orderCode}`;
-                } else {
-                    alert(`Failed to order!`);
-                }
-            });
+            fetch(`/order`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.code == 200) {
+                        localStorage.setItem("cart", JSON.stringify([]));
+                        window.location.href = `/order/success?orderCode=${data.orderCode}`;
+                    } else {
+                        alert(`Failed to order!`);
+                    }
+                });
+        } else {
+            alert(`Cart can not be empty to order!`)
+        }
     });
 };
 // End Reserve Form

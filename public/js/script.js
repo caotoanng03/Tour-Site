@@ -42,8 +42,10 @@ const showMiniCart = () => {
     const miniCart = document.querySelector("[mini-cart]");
     if (miniCart) {
         const cart = JSON.parse(localStorage.getItem("cart"));
-        const totalQuantity = cart.reduce((acc, elem) => acc + elem.quantity, 0);
-
+        let totalQuantity = 0;
+        if (cart) {
+            totalQuantity = cart.reduce((acc, elem) => acc + elem.quantity, 0);
+        }
         miniCart.innerText = totalQuantity;
     };
 };
