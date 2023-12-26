@@ -102,7 +102,14 @@ if (formOrder) {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(data => console.log(data));
+            .then(data => {
+                if (data.code == 200) {
+                    localStorage.setItem("cart", JSON.stringify([]));
+                    window.location.href = `/cart/success?orderCode=${data.orderCode}`;
+                } else {
+                    alert(`Failed to order!`);
+                }
+            });
     });
 };
 // End Reserve Form
