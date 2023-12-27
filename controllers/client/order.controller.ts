@@ -70,9 +70,48 @@ export const order = async (req: Request, res: Response) => {
 
 // [GET] /order/success/:orderCode
 export const success = async (req: Request, res: Response) => {
-    console.log(req.params.orderCode);
+    const orderCode = req.query.orderCode;
 
-    res.render(`client/pages/carts/success`, {
-        pageTitle: "Success Order",
+    const order = await Order.findOne({
+        where: {
+            code: orderCode,
+            deleted: false
+        },
+        raw: true
     });
+
+    if (order) {
+        const orderItems = await OrderItem.findAll({
+            where: {
+                orderId: order["id"]
+            },
+            raw: true
+        });
+
+        for (const item of orderItems) {
+            const tourInfo = await Tour.findOne({
+                where: {
+                    id: item["tourId"],
+                    deleted: false,
+                    status: "active"
+                },
+                raw: true
+            });
+            item["title"] = tourInfo["title"];
+            item["image"] = JSON.parse(tourInfo["images"])[0];
+            item["slug"] = tourInfo["slug"];
+            item["discounted_price"] = item["price"] * (1 - item["discount"] / 100);
+            item["total"] = item["quantity"] * item["discounted_price"];
+        };
+        order["code"] = orderCode;
+        order["total_bill"] = orderItems.reduce((sum, item) => sum + item["total"], 0);
+
+        res.render(`client/pages/orders/success`, {
+            pageTitle: "Success Order",
+            order,
+            orderItems
+        });
+    } else {
+        res.render('client/pages/errors/404');
+    }
 };
