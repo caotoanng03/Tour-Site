@@ -1,7 +1,9 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import clientRoutes from "./routes/client/index.route";
+import adminRoutes from "./routes/admin/index.route";
 import moment from "moment";
+import { systemConfig } from "./config/system";
 dotenv.config();
 
 const app: Express = express();
@@ -20,9 +22,11 @@ app.set("view engine", "pug");
 
 // App local variables
 app.locals.moment = moment;
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // Routes
 clientRoutes(app);
+adminRoutes(app);
 
 app.listen(port, () => {
     console.log(`app listenging on port ${port}`);
