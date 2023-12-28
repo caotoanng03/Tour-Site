@@ -6,6 +6,7 @@ block main
     form(
         action=`/${prefixAdmin}/tours/create`
         method="POST"
+        enctype="multipart/form-data"
     )
         div(class="form-group")
             label(for="title") Title
@@ -27,6 +28,17 @@ block main
                 option(value="" disabled selected) -- Choose Category --
                 each item in categories
                     option(value=item.id) #{item.title}
+
+        div(class="form-group")
+            label(for="images") Choose multiple images
+            input(
+                type="file"
+                class="form-control-file"
+                id="images"
+                name="images"
+                accept="image/*"
+                multiple
+            )
 
         div(class="form-group")
             label(for="price") Price

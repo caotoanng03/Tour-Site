@@ -3,6 +3,7 @@ import Tour from "../../models/tour.model";
 import Category from "../../models/category.model";
 import TourCategory from "../../models/tour-category.model";
 import { systemConfig } from "../../config/system";
+import { generateTourCode } from "../../helpers/generate";
 
 // [GET] /admin/tours
 export const index = async (req: Request, res: Response): Promise<void> => {
@@ -52,7 +53,7 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 export const createPost = async (req: Request, res: Response): Promise<void> => {
     const numberOfAllTour = await Tour.count({});
 
-    const code = numberOfAllTour + 1;
+    const code = generateTourCode(numberOfAllTour + 1);
 
     if (!req.body.position) {
         req.body.position = numberOfAllTour + 1;
@@ -63,6 +64,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
     const tourData = {
         title: req.body.title,
         code: code,
+        images: JSON.stringify(req.body.images),
         price: parseInt(req.body.price),
         discount: parseInt(req.body.discount),
         timeStart: req.body.timeStart,
