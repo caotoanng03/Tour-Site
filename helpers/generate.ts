@@ -8,4 +8,12 @@ export const generateOrderCode = (number: number): string => {
     // Nếu number = 20, kết quả sẽ là 'OD00000020'.
     // Nếu number = 234, kết quả sẽ là 'OD00000234'.
     return code;
+};
+
+// Generate tour code
+export const generateTourCode = (number: number): string => {
+
+    const code = `TOUR${String(number).padStart(6, '0')}`;
+
+    return code
 }

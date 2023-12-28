@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import Tour from "../../models/tour.model";
 import Category from "../../models/category.model";
+import TourCategory from "../../models/tour-category.model";
+import { systemConfig } from "../../config/system";
 
 // [GET] /admin/tours
 export const index = async (req: Request, res: Response): Promise<void> => {
@@ -40,8 +42,44 @@ export const create = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.render("admin/pages/tours/create", {
-        pageTitle: "Admin",
+        pageTitle: "Create New Tour",
         categories
     });
 
+};
+
+// [POST] /admin/tours/create
+export const createPost = async (req: Request, res: Response): Promise<void> => {
+    const numberOfAllTour = await Tour.count({});
+
+    const code = numberOfAllTour + 1;
+
+    if (!req.body.position) {
+        req.body.position = numberOfAllTour + 1;
+    } else {
+        req.body.position = parseInt(req.body.position);
+    };
+
+    const tourData = {
+        title: req.body.title,
+        code: code,
+        price: parseInt(req.body.price),
+        discount: parseInt(req.body.discount),
+        timeStart: req.body.timeStart,
+        stock: parseInt(req.body.stock),
+        position: req.body.position,
+        status: req.body.status
+    };
+
+    const tour = await Tour.create(tourData);
+    const tourId = tour["id"];
+
+    const dataTourCategory = {
+        tour_id: tourId,
+        category_id: parseInt(req.body.category_id)
+    };
+
+    await TourCategory.create(dataTourCategory);
+
+    res.redirect(`/${systemConfig.prefixAdmin}/tours`);
 };
