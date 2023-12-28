@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Tour from "../../models/tour.model";
+import Category from "../../models/category.model";
 
 // [GET] /admin/tours
 export const index = async (req: Request, res: Response): Promise<void> => {
@@ -24,4 +25,23 @@ export const index = async (req: Request, res: Response): Promise<void> => {
         pageTitle: "Admin",
         tours
     });
+};
+
+// [GET] /admin/tours/create
+export const create = async (req: Request, res: Response): Promise<void> => {
+    // select * from categories where deleted = false and status = 'active';
+
+    const categories = await Category.findAll({
+        where: {
+            deleted: false,
+            status: 'active'
+        },
+        raw: true
+    });
+
+    res.render("admin/pages/tours/create", {
+        pageTitle: "Admin",
+        categories
+    });
+
 };
