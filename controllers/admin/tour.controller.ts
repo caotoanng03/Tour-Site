@@ -70,7 +70,9 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
         timeStart: req.body.timeStart,
         stock: parseInt(req.body.stock),
         position: req.body.position,
-        status: req.body.status
+        status: req.body.status,
+        information: req.body.information,
+        schedule: req.body.schedule
     };
 
     const tour = await Tour.create(tourData);

@@ -90,6 +90,25 @@ block main
                 placeholder="Auto-increment..."
                 min="1"
             )
+
+        div(class="form-group")
+            label(for="information") Tour Information
+            textarea(
+                class="form-control"
+                id="information"
+                name="information"
+                textarea-mce
+            )
+
+        div(class="form-group")
+            label(for="schedule") Tour Schedule
+            textarea(
+                class="form-control"
+                id="schedule"
+                name="schedule"
+                textarea-mce
+            )
+
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"

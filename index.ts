@@ -4,6 +4,7 @@ import clientRoutes from "./routes/client/index.route";
 import adminRoutes from "./routes/admin/index.route";
 import moment from "moment";
 import { systemConfig } from "./config/system";
+import path from "path";
 dotenv.config();
 
 const app: Express = express();
@@ -19,6 +20,11 @@ app.use(express.static("public"));
 // Template enginge
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+// TinyMCE
+app.use("/tinymce",
+    express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 
 // App local variables
 app.locals.moment = moment;
