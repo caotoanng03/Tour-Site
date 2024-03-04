@@ -35,5 +35,5 @@ clientRoutes(app);
 adminRoutes(app);
 
 app.listen(port, () => {
-    console.log(`app listenging on port ${port}`);
+    console.log(`app listening on port ${port}`);
 })
