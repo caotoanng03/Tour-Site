@@ -2,8 +2,8 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
 const TourCategory = sequelize.define("tour-category", {
-    tour_id: {
-        type: DataTypes.INTEGER,
+    tourId: {
+        type: DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
         references: {
@@ -11,8 +11,8 @@ const TourCategory = sequelize.define("tour-category", {
             key: "id"
         }
     },
-    category_id: {
-        type: DataTypes.INTEGER,
+    categoryId: {
+        type: DataTypes.BIGINT,
         allowNull: false,
         primaryKey: true,
         references: {

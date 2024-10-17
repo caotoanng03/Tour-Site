@@ -11,21 +11,29 @@ const OrderItem = sequelize.define("order-item", {
     orderId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: "orders",
+            key: "id"
+        }
     },
     tourId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: "tours",
+            key: "id"
+        }
     },
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
     price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
     },
     discount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(5, 2),
     },
     timeStart: {
         type: DataTypes.DATE,

@@ -11,8 +11,8 @@ export const getToursBaseOnCategrorySlug = async (req: Request, res: Response): 
         `
         SELECT tours.*, categories.title AS categoryTitle, ROUND(price * (1 - discount/100), 0) AS price_special
         FROM tours
-        JOIN tours_categories ON tours.id = tours_categories.tour_id
-        JOIN categories ON tours_categories.category_id = categories.id
+        JOIN tours_categories ON tours.id = tours_categories.tourId
+        JOIN categories ON tours_categories.categoryId = categories.id
         WHERE
             categories.slug = '${slugCategory}'
             AND categories.deleted = false

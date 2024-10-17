@@ -3,7 +3,7 @@ import { DataTypes, INTEGER } from "sequelize";
 
 const Category = sequelize.define("category", {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
@@ -19,7 +19,9 @@ const Category = sequelize.define("category", {
         type: DataTypes.TEXT('long')
     },
     status: {
-        type: DataTypes.STRING(20)
+        type: DataTypes.ENUM,
+        values: ['active', 'inactive'],
+        defaultValue: 'active'
     },
     position: {
         type: INTEGER
@@ -32,9 +34,9 @@ const Category = sequelize.define("category", {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    deletedAt: {
-        type: DataTypes.DATE
-    }
-}, { tableName: "categories", timestamps: true });
+    // deletedAt: {
+    //     type: DataTypes.DATE
+    // }
+}, { tableName: "categories", timestamps: false });
 
 export default Category;

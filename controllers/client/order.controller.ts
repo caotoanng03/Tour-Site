@@ -9,12 +9,18 @@ export const order = async (req: Request, res: Response) => {
     const data = req.body;
 
     if (data.cart.length > 0) {
+        // TODO 1: create a new account for unloggedin users
+
+        // TODO 2: create a new order record with userId - foreign key
         // Store to orders table
         const orderData = {
             code: "",
-            fullName: data.info.fullName,
-            phone: data.info.phone,
+            // change to real data
+            userId: 1,
+            // fullName: data.info.fullName,
+            // phone: data.info.phone,
             note: data.info.note,
+            // add email
             status: "initial",
         }
 

@@ -4,7 +4,7 @@ import slugify from "slugify";
 
 const Tour = sequelize.define("tour", {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
@@ -14,22 +14,33 @@ const Tour = sequelize.define("tour", {
         allowNull: false
     },
     code: {
-        type: DataTypes.STRING(10)
+        type: DataTypes.STRING(10),
+        allowNull: false
     },
     images: {
         type: DataTypes.TEXT('long')
     },
     price: {
-        type: DataTypes.INTEGER
+        type: DataTypes.DECIMAL(10, 2)
     },
     discount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(5, 2)
     },
     information: {
         type: DataTypes.TEXT('long')
     },
     schedule: {
         type: DataTypes.TEXT('long')
+    },
+    hasPickup: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    rating: {
+        type: DataTypes.DECIMAL(3, 2)
+    },
+    tourTag: {
+        type: DataTypes.STRING(50)
     },
     timeStart: {
         type: DataTypes.DATE
@@ -38,7 +49,9 @@ const Tour = sequelize.define("tour", {
         type: DataTypes.INTEGER
     },
     status: {
-        type: DataTypes.STRING(20)
+        type: DataTypes.ENUM,
+        values: ['active', 'inactive'],
+        defaultValue: 'active'
     },
     position: {
         type: DataTypes.INTEGER
@@ -50,10 +63,10 @@ const Tour = sequelize.define("tour", {
     deleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
-    },
-    deletedAt: {
-        type: DataTypes.DATE
-    },
+    }
+    // deletedAt: {
+    //     type: DataTypes.DATE
+    // },
     // createdAt: {
     //     type: DataTypes.DATE,
     //     allowNull: true
@@ -62,7 +75,7 @@ const Tour = sequelize.define("tour", {
     //     type: DataTypes.DATE,
     //     allowNull: true
     // }
-}, { tableName: "tours", timestamps: true });
+}, { tableName: "tours", timestamps: false });
 
 Tour.beforeCreate((tour) => {
     tour["slug"] = slugify(`${tour["title"]}-${Date.now()}`, {
