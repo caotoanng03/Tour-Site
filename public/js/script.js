@@ -102,3 +102,19 @@ if (profileImage) {
     });
 }
 // End Dropdown profile
+
+// Show alert
+const showAlert = document.querySelector('[show-alert]');
+if (showAlert) {
+    const time = parseInt(showAlert.getAttribute('date-time')) || 3000;
+    const closetAlert = showAlert.querySelector('[close-alert]');
+
+    setTimeout(() => {
+        showAlert.classList.add('alert-hidden');
+    }, time);
+
+    closetAlert.addEventListener('click', () => {
+        showAlert.classList.add('alert-hidden');
+    });
+};
+// End Show alert

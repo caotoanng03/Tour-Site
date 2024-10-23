@@ -1,5 +1,8 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
+import flash from "express-flash"
+import cookieParser from "cookie-parser"
+import session from "express-session"
 import clientRoutes from "./routes/client/index.route";
 import adminRoutes from "./routes/admin/index.route";
 import moment from "moment";
@@ -20,6 +23,11 @@ app.use(express.static("public"));
 // Template enginge
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+// Flash
+app.use(cookieParser('ALITTLEBOZ'));
+app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(flash());
 
 // TinyMCE
 app.use("/tinymce",
