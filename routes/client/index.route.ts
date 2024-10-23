@@ -3,6 +3,7 @@ import { tourRoutes } from "./tour.route";
 import { categoryRoutes } from "./category.route";
 import { cartRoutes } from "./cart.route";
 import { orderRoutes } from "./order.route";
+import { userRoutes } from "./user.route";
 
 const clientRoutes = (app: Express): void => {
 
@@ -13,6 +14,8 @@ const clientRoutes = (app: Express): void => {
     app.use(`/cart`, cartRoutes)
 
     app.use(`/order`, orderRoutes)
+
+    app.use(`/user`, userRoutes)
 }
 
 export default clientRoutes;

@@ -91,3 +91,14 @@ if (formAddToCart) {
 };
 
 // End Cart
+
+// Dropdown profile
+const profileImage = document.querySelector('.inner-menu>ul>.user-pic');
+if (profileImage) {
+    const subMenu = document.querySelector('.sub-menu-wrap');
+
+    profileImage.addEventListener('click', () => {
+        subMenu.classList.toggle('open-sub-menu');
+    });
+}
+// End Dropdown profile

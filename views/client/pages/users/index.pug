@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug 
+//- include ../../mixins/alert.pug
+
+block main 
+    //- +alert-error(5000)
+
+    div(class="container-form-login")
+        div(class="form-box")
+            h1(class="form-title") Register
+            form(
+                id="authForm"
+                action=""
+                method="POST"
+            )
+                div(class="input-group")
+                    div(class="input-field" id="fullNameField")
+                        i(class="fa-regular fa-user")
+                        input( 
+                            type="text" 
+                            name="fullName" 
+                            id="fullName" 
+                            placeholder="Your Full Name..."
+                            required 
+                        )
+                    div(class="input-field" )
+                        i(class="fa-solid fa-envelope")
+                        input( 
+                            type="text" 
+                            name="email" 
+                            id="email" 
+                            placeholder="Your Email..."
+                            required 
+                        )
+                    div(class="input-field" )
+                        i(class="fa-solid fa-lock")
+                        input( 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            placeholder="Your Password..."
+                            required 
+                        )
+
+                    p(class="forgot-password") Forgot Password? 
+                        a(href="/user/password/forgot") Click Here
+
+                div(class="btn-field")
+                    button(
+                        type="button"
+                        class="registerBtn"
+                    ) Register
+                    button(
+                        type="button"
+                        class="loginBtn disabled"
+                    ) Login
+
+
+    script(src="/js/loginUserForm.js") 
+
+

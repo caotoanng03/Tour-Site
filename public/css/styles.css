@@ -42,6 +42,107 @@ main {
     color: #333;
 }
 
+.header .inner-menu>ul>img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #ddd;
+    padding: 2px;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+.header .inner-menu>ul>img:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+/* Dropdown profile */
+
+.sub-menu-wrap {
+    z-index: 10000;
+    position: absolute;
+    top: 100%;
+    right: -18%;
+    width: 200px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-sub-menu {
+    max-height: 500px;
+}
+
+.sub-menu-wrap.open-sub-menu .sub-menu {
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+
+.sub-menu-wrap .sub-menu {
+    box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
+    background: rgb(235, 234, 234);
+    padding: 0.5rem;
+    margin-top: 10px;
+}
+
+.sub-menu-wrap .sub-menu .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.sub-menu-wrap .sub-menu .user-info h6 {
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.sub-menu-wrap .sub-menu .user-info img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-menu-wrap .sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #919191;
+    margin: 10px 0 10px;
+}
+
+.sub-menu-wrap .sub-menu .sub-menu-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #212121;
+    margin: 12px 0;
+}
+
+.sub-menu-wrap .sub-menu .sub-menu-link a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sub-menu-wrap .sub-menu .sub-menu-link p {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.sub-menu-wrap .sub-menu .sub-menu-link:hover p {
+    font-weight: 600;
+}
+
+.sub-menu-wrap .sub-menu .sub-menu-link span {
+    font-size: 18px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-wrap .sub-menu .sub-menu-link:hover span {
+    transform: translateX(5px);
+}
+
 /* End Header */
 
 

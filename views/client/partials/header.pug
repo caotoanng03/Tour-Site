@@ -1,3 +1,5 @@
+include ../mixins/dropdown-profile-item.pug
+
 header.header 
     .container
         .row.align-items-center
@@ -16,3 +18,22 @@ header.header
                             a(href="/cart")
                                 <i class="fa-solid fa-cart-shopping"></i>
                                     | (<span mini-cart >0</span>)
+
+                        img(
+                            class="user-pic"
+                            src=(user && user.avatar? user.avatar : "/images/default-user.png")
+                            alt=(user && user.fullName? user.fullName: "Default user name")
+                        )
+
+                        .sub-menu-wrap
+                            .sub-menu 
+                                if(user)
+                                    .user-info 
+                                        img(src=(user && user.avatar ? user.avatar : "/images/default-user.png"))
+                                        h6 #{user && user.fullName ? user.fullName : "unloggedin user"}
+                                    hr
+
+                                    +link-item("/user/profile", "Profile Setting")
+                                    +link-item("/user/logout", "Logout")
+                                else
+                                    +link-item("/user/register", "Register/Login")
