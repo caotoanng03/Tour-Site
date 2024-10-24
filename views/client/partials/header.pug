@@ -33,7 +33,7 @@ header.header
                                         h6 #{user && user.fullName ? user.fullName : "unloggedin user"}
                                     hr
 
-                                    +link-item("/user/profile", "Profile Setting")
-                                    +link-item("/user/logout", "Logout")
+                                    +link-item("/user/profile", "profile setting")
+                                    +link-item("/user/logout", "sign out")
                                 else
-                                    +link-item("/user/register", "Register/Login")
+                                    +link-item("/user/register", "register/login")

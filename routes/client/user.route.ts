@@ -12,4 +12,10 @@ router.post(
     controller.registerPost
 )
 
+router.post(
+    `/login`,
+    validate.loginPost,
+    controller.loginPost
+)
+
 export const userRoutes: Router = router;

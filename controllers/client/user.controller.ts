@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import User from "../../models/user.model";
-
+import md5 from "md5"
 // [GET] /user/register 
 export const register = async (req: Request, res: Response): Promise<void> => {
 
@@ -15,11 +15,14 @@ export const registerPost = async (req, res: Response): Promise<void> => {
     const email: string = req.body.email;
 
     const existedUser = await User.findOne({
+        attributes: ['email'],
         where: {
             email: email,
         },
         raw: true
     });
+
+    console.log(existedUser);
 
     if (existedUser) {
         req.flash('error', 'Email already existed!');
@@ -30,7 +33,7 @@ export const registerPost = async (req, res: Response): Promise<void> => {
     const userData = {
         fullName: req.body.fullName,
         email: req.body.email,
-        password: req.body.password
+        password: md5(req.body.password)
     }
 
     if (req.body.avatar) {
@@ -46,5 +49,42 @@ export const registerPost = async (req, res: Response): Promise<void> => {
     res.cookie('tokenUser', newUser.dataValues.tokenUser);
 
     req.flash('success', 'You successfully registered new account!')
+    res.redirect('/categories');
+}
+
+//[POST] /user/login
+export const loginPost = async (req, res: Response): Promise<void> => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({
+        where: {
+            email: email,
+            deleted: false
+        }
+    });
+
+    if (!user) {
+        req.flash('error', 'Email is incorrect!');
+        res.redirect('back');
+        return;
+    }
+    console.log(password)
+    console.log(user.dataValues.password)
+
+    if (md5(password) !== user.dataValues.password) {
+        req.flash('error', 'Password is incorrect!');
+        res.redirect('back');
+        return;
+    }
+
+    if (user.dataValues.status === 'inactive') {
+        req.flash('error', 'The account is suspended!');
+        res.redirect('back');
+        return;
+    }
+
+    res.cookie('tokenUser', user.dataValues.tokenUser);
+    req.flash('success', 'Login successfully!');
+    // TODO: redirect to home if login sucessful
     res.redirect('/categories');
 }
