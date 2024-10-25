@@ -22,8 +22,6 @@ export const registerPost = async (req, res: Response): Promise<void> => {
         raw: true
     });
 
-    console.log(existedUser);
-
     if (existedUser) {
         req.flash('error', 'Email already existed!');
         res.redirect('back')
@@ -86,5 +84,12 @@ export const loginPost = async (req, res: Response): Promise<void> => {
     res.cookie('tokenUser', user.dataValues.tokenUser);
     req.flash('success', 'Login successfully!');
     // TODO: redirect to home if login sucessful
+    res.redirect('/categories');
+}
+
+//[GET] /user/logout
+export const logout = async (req: Request, res: Response): Promise<void> => {
+    res.clearCookie('tokenUser');
+    // TODO: redirect to homepage
     res.redirect('/categories');
 }

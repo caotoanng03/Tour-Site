@@ -18,4 +18,9 @@ router.post(
     controller.loginPost
 )
 
+router.get(
+    `/logout`,
+    controller.logout
+)
+
 export const userRoutes: Router = router;
