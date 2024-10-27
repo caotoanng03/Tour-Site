@@ -7,7 +7,8 @@ export const userInfo = async (req, res: Response, next: NextFunction) => {
             attributes: { exclude: ['password'] },
             where: {
                 tokenUser: req.cookies.tokenUser,
-                deleted: false
+                deleted: false,
+                status: 'active'
             }
         })
 

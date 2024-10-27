@@ -1,0 +1,40 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success(5000)
+    +alert-error(5000)
+
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("Profile")
+
+        .container.my-4 
+            .row.justify-content-center 
+                .col-md-8 
+                    .card 
+                        .card-body 
+                            .user-info
+                                .user-pic
+                                    img(
+                                        src=(user && user.avatar? user.avatar: "/images/default-user.png")
+                                        alt=(user && user.avatar? user.fullName: "default user image")
+                                    )
+                                p.mb-3 
+                                    strong Name: 
+                                    span #{user.fullName}
+                                p.mb-3 
+                                    strong Email: 
+                                    span #{user.email}
+                                p.mb-3 
+                                    strong Phone Number: 
+                                    span #{user.phone ? user.phone : "Not given"}
+                                p.mb-5
+                                    strong Country: 
+                                    span #{user.citizen ? user.citizen : "Not given"}
+                                a(
+                                    href="/user/profile/edit"
+                                    class="btn btn-warning"
+                                ) Edit

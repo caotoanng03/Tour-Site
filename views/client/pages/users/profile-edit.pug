@@ -1,0 +1,105 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-error(5000)
+
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head(pageTitle)
+
+        .container.my-4 
+            .row.justify-content-center 
+                .col-md-8
+                    .card 
+                        .card-body 
+
+                            form(
+                                form-edit-user-profile
+                                action="/user/profile/edit"
+                                method="POST"
+                                enctype="multipart/form-data"
+                            ) 
+                                div(
+                                    class="form-group"
+                                    upload-image
+                                )
+                                    input(
+                                        type="file"
+                                        class="form-control-file"
+                                        name="avatar"
+                                        id="avatar"
+                                        accept="image/*"
+                                        upload-image-input
+                                    )
+                                    img(
+                                        src=(user.avatar? user.avatar: "/images/default-user.png")
+                                        class="image-preview"
+                                        upload-image-preview
+                                    )
+
+                                div(class="form-group")
+                                    label(for="fullName") Full Name: 
+                                    input(
+                                        type="text"
+                                        id="fullName"
+                                        name="fullName"
+                                        class="form-control"
+                                        value=user.fullName
+                                        required
+                                    )
+
+                                div(class="form-group")
+                                    label(for="email") Email: 
+                                    input(
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        value=user.email
+                                        required
+                                    )
+
+                                div(class="form-group")
+                                    label(for="phone") Phone Number: 
+                                    input(
+                                        type="text"
+                                        id="phone"
+                                        name="phone"
+                                        class="form-control"
+                                        if (user.phone)
+                                            value=user.phone
+                                    )
+
+                                //- div(class="form-group")
+                                //-     label(for="citizen") Country: 
+                                //-     input(
+                                //-         type="text"
+                                //-         id="citizen"
+                                //-         name="citizen"
+                                //-         class="form-control"
+                                //-         if (user.citizen)
+                                //-             value=user.citizen
+                                //-     )
+                                div(class="form-group")
+                                    label(for="citizen") Country: 
+                                    select(
+                                        id="citizen"
+                                        name="citizen"
+                                        class="form-control"
+                                    )
+                                        option(value="") Select your country
+
+                                div(class="form-group")
+                                    a(
+                                        onclick="history.back();"
+                                        class="btn btn-secondary mt-2"
+                                        aria-label="Close"
+                                    ) Cancel
+
+                                    button(
+                                        type="submit"
+                                        class="btn btn-primary ml-2 mt-2"
+                                    ) Apply

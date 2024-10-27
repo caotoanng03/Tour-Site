@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+
 html {
     height: 100%;
 }
 
 body {
+    font-family: Noto Sans;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -35,7 +38,9 @@ main {
 }
 
 .header .inner-menu>ul>li {
-    margin-left: 20px;
+    margin-left: 30px;
+    font-size: 1.1rem;
+    font-family: Noto Serif;
 }
 
 .header .inner-menu>ul>li>a {
@@ -145,7 +150,38 @@ main {
 
 /* End Header */
 
+/* Frofile Settings */
+.card .user-info .user-pic {
+    width: 100%;
+    height: 150px;
+}
 
+.card .user-info img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+/* End Frofile Settings */
+
+/* Image Preview */
+.image-preview {
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.image-preview[src=""] {
+    display: none;
+}
+
+/* End Image Preview */
 
 /* Footer */
 .footer {

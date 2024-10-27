@@ -5,6 +5,7 @@ import { cartRoutes } from "./cart.route";
 import { orderRoutes } from "./order.route";
 import { userRoutes } from "./user.route";
 import * as userMiddleware from "../../middlewares/client/user.middleware";
+import { userProfileRoutes } from "./user-profile.route";
 
 const clientRoutes = (app: Express): void => {
     app.use(userMiddleware.userInfo)
@@ -13,11 +14,14 @@ const clientRoutes = (app: Express): void => {
 
     app.use(`/categories`, categoryRoutes)
 
+    // auth
     app.use(`/cart`, cartRoutes)
 
     app.use(`/order`, orderRoutes)
 
     app.use(`/user`, userRoutes)
+
+    app.use(`/user/profile`, userProfileRoutes)
 }
 
 export default clientRoutes;

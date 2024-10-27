@@ -118,3 +118,40 @@ if (showAlert) {
     });
 };
 // End Show alert
+
+// Upload Image Preview
+const uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
+    const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
+    const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]");
+    uploadImageInput.addEventListener("change", (e) => {
+        if (e.target.files.length) {
+            const image = URL.createObjectURL(e.target.files[0]);
+            uploadImagePreview.src = image;
+        }
+    });
+}
+// End Upload Image Preview
+
+// Get country data list from API
+
+const formUserProfileEdit = document.querySelector('[form-edit-user-profile]');
+
+if (formUserProfileEdit) {
+    const countrySelect = formUserProfileEdit.querySelector('[name="citizen"]');
+    const api = 'https://restcountries.com/v3.1/all';
+
+    fetch(api)
+        .then(res => res.json())
+        .then(countries => {
+            html = countries.map(item => `
+                <option value=${item.name.common}>${item.name.common}</option>
+            `).join('');
+            html = `<option value='' selected>Select your country</option>` + html;
+            countrySelect.innerHTML = html;
+        });
+
+}
+
+
+
