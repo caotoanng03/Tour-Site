@@ -22,8 +22,8 @@ const ForgotPassword = sequelize.define('forgot_password', {
     }
 }, { tableName: 'forgot_password', timestamps: false });
 
-// Schedule a job to run every minute
-cron.schedule('* * * * *', async () => {
+// Scheduler to delete expired record at midnight everyday
+cron.schedule('0 0 * * *', async () => {
     try {
         const deletedCount = await ForgotPassword.destroy({
             where: {

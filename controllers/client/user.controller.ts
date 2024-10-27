@@ -177,6 +177,13 @@ export const otpPasswordPost = async (req, res: Response): Promise<void> => {
         res.redirect('back');
         return;
     }
+    const expireTime = existedOtp.dataValues.expireAt;
+
+    if (expireTime < Date.now()) {
+        req.flash('error', 'Otp is expired!');
+        res.redirect('back');
+        return;
+    }
 
     const user = await User.findOne({
         where: {
