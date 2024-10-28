@@ -38,9 +38,9 @@ main {
 }
 
 .header .inner-menu>ul>li {
-    margin-left: 30px;
+    margin-left: 1.5rem;
     font-size: 1.1rem;
-    font-family: Noto Serif;
+    font-family: Noto sans;
 }
 
 .header .inner-menu>ul>li>a {
@@ -48,14 +48,14 @@ main {
 }
 
 .header .inner-menu>ul>img {
-    width: 35px;
-    height: 35px;
+    width: 3rem;
+    height: 3rem;
     object-fit: cover;
     border-radius: 50%;
     background-color: #ddd;
     padding: 2px;
     cursor: pointer;
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 .header .inner-menu>ul>img:hover {
@@ -70,9 +70,10 @@ main {
     top: 100%;
     right: -18%;
     width: 200px;
+    padding: 10px;
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 0.5s;
+    transition: max-height 0.3s;
 }
 
 .sub-menu-wrap.open-sub-menu {
@@ -87,7 +88,7 @@ main {
 .sub-menu-wrap .sub-menu {
     box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
     background: rgb(235, 234, 234);
-    padding: 0.5rem;
+    padding: 1rem;
     margin-top: 10px;
 }
 

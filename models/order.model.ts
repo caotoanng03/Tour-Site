@@ -20,14 +20,18 @@ const Order = sequelize.define("order", {
         type: DataTypes.STRING(10),
         allowNull: false,
     },
-    // fullName: {
-    //     type: DataTypes.STRING(50),
-    //     allowNull: false,
-    // },
-    // phone: {
-    //     type: DataTypes.STRING(10),
-    //     allowNull: false,
-    // },
+    fullName: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+    },
     note: {
         type: DataTypes.STRING(500),
     },

@@ -38,3 +38,28 @@ export const generateRandomNumber = (length) => {
     }
     return result;
 }
+
+export const generateTempPassword = (length) => {
+    if (length < 3) {
+        throw new Error("Password length must be at least 3 to include required characters.");
+    }
+
+    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const allCharacters = uppercase + lowercase + numbers;
+
+    let password = [
+        uppercase[Math.floor(Math.random() * uppercase.length)],
+        lowercase[Math.floor(Math.random() * lowercase.length)],
+        numbers[Math.floor(Math.random() * numbers.length)]
+    ];
+
+    for (let i = 3; i < length; i++) {
+        password.push(allCharacters[Math.floor(Math.random() * allCharacters.length)]);
+    }
+
+    password = password.sort(() => Math.random() - 0.5);
+
+    return password.join('');
+}

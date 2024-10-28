@@ -19,7 +19,7 @@ const renderTourListInCart = () => {
                     <td>${element.discounted_price.toLocaleString()}VND</td>
                     <td><input type="number" name="quantity" value=${element.quantity} min="1" item-id="${element.info.id}" style="width: 60px" /></td>
                     <td>${element.total.toLocaleString()}VND</td>
-                    <td><button class="btn btn-danger" btn-delete="${element.info.id}">Remove</button></td>
+                    <td><button class="btn btn-danger" btn-delete="${element.info.id}"><i class="fa-regular fa-trash-can"></i></button></td>
                 </tr>
                 `;
             });
@@ -76,22 +76,26 @@ const updateQuantityInCart = () => {
 
 // Reserve Form
 const formOrder = document.querySelector("[form-order]");
+
 if (formOrder) {
     formOrder.addEventListener("submit", (event) => {
         event.preventDefault();
         const cart = JSON.parse(localStorage.getItem("cart"));
 
         const fullName = event.target.elements.fullName.value;
+        const email = event.target.elements.email.value;
         const phone = event.target.elements.phone.value;
         const note = event.target.elements.note.value;
+        let info = {
+            fullName,
+            email,
+            phone
+        }
+        if (note) info.note = note;
 
         if (cart) {
             const data = {
-                info: {
-                    fullName,
-                    phone,
-                    note
-                },
+                info,
                 cart
             };
 
