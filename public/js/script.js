@@ -139,19 +139,25 @@ const formUserProfileEdit = document.querySelector('[form-edit-user-profile]');
 
 if (formUserProfileEdit) {
     const countrySelect = formUserProfileEdit.querySelector('[name="citizen"]');
+    const firstOption = countrySelect.querySelector('option');
+    console.log(firstOption)
     const api = 'https://restcountries.com/v3.1/all';
 
     fetch(api)
         .then(res => res.json())
         .then(countries => {
-            html = countries.map(item => `
-                <option value=${item.name.common}>${item.name.common}</option>
+            const html = countries.map(item => item.name.common)
+                .sort()
+                .map(country => `
+                <option value=${country}>${country}</option>
             `).join('');
-            html = `<option value='' selected>Select your country</option>` + html;
-            countrySelect.innerHTML = html;
-        });
+
+            firstOption.insertAdjacentHTML("afterend", html);
+        })
+        .catch(error => console.error('Error:', error));
 
 }
+// End get country data list from API
 
 
 

@@ -55,6 +55,14 @@ export const registerPost = async (req, res: Response): Promise<void> => {
     res.redirect('/categories');
 }
 
+// [GET] /user/login 
+export const login = async (req: Request, res: Response): Promise<void> => {
+
+    res.render(`client/pages/users/index`, {
+        pageTitle: "Register/Login"
+    });
+}
+
 //[POST] /user/login
 export const loginPost = async (req, res: Response): Promise<void> => {
     const { email, password } = req.body;

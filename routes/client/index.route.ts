@@ -4,8 +4,9 @@ import { categoryRoutes } from "./category.route";
 import { cartRoutes } from "./cart.route";
 import { orderRoutes } from "./order.route";
 import { userRoutes } from "./user.route";
-import * as userMiddleware from "../../middlewares/client/user.middleware";
 import { userProfileRoutes } from "./user-profile.route";
+import * as userMiddleware from "../../middlewares/client/user.middleware";
+import * as authMiddeware from "../../middlewares/client/auth.middleware";
 
 const clientRoutes = (app: Express): void => {
     app.use(userMiddleware.userInfo)
@@ -21,7 +22,7 @@ const clientRoutes = (app: Express): void => {
 
     app.use(`/user`, userRoutes)
 
-    app.use(`/user/profile`, userProfileRoutes)
+    app.use(`/user/profile`, authMiddeware.requireAuth, userProfileRoutes)
 }
 
 export default clientRoutes;
