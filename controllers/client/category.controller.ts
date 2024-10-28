@@ -13,7 +13,6 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.render('client/pages/categories/index', {
-        pageTitle: "Categories List",
         categories
     })
 }
