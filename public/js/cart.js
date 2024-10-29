@@ -10,19 +10,22 @@ const renderTourListInCart = () => {
     })
         .then(res => res.json())
         .then(data => {
-            const htmls = data.tours.map((element, index) => {
-                return `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td><img src=${element.image} alt=${element.info.title} width="80px" /></td>
-                    <td><a href="/tours/detail/${element.info.slug}">${element.info.title}</a></td>
-                    <td>${element.discounted_price.toLocaleString()}VND</td>
-                    <td><input type="number" name="quantity" value=${element.quantity} min="1" item-id="${element.info.id}" style="width: 60px" /></td>
-                    <td>${element.total.toLocaleString()}VND</td>
-                    <td><button class="btn btn-danger" btn-delete="${element.info.id}"><i class="fa-regular fa-trash-can"></i></button></td>
-                </tr>
-                `;
-            });
+            let htmls = [];
+            if (data.code === 200) {
+                htmls = data.tours.map((element, index) => {
+                    return `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><img src=${element.image} alt=${element.info.title} width="80px" /></td>
+                        <td><a href="/tours/detail/${element.info.slug}">${element.info.title}</a></td>
+                        <td>${element.discounted_price.toLocaleString()}$</td>
+                        <td><input type="number" name="quantity" value=${element.quantity} min="1" item-id="${element.info.id}" style="width: 60px" /></td>
+                        <td>${element.total.toLocaleString()}$</td>
+                        <td><button class="btn btn-danger" btn-delete="${element.info.id}">Remove</button></td>
+                    </tr>
+                    `;
+                });
+            }
 
             const wrapperElem = document.querySelector("[tour-list]");
             wrapperElem.innerHTML = htmls.join("");
@@ -43,11 +46,20 @@ renderTourListInCart();
 const deleteTourInCart = () => {
     const listButtonDelete = document.querySelectorAll("[btn-delete]")
     listButtonDelete.forEach(button => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", (e) => {
+            console.log(e.target)
             const tourId = button.getAttribute("btn-delete");
             const cart = JSON.parse(localStorage.getItem("cart"));
             const notDeletedItems = cart.filter(elem => elem.tourId != tourId);
             localStorage.setItem("cart", JSON.stringify(notDeletedItems));
+
+            // Remove the specific row from the DOM
+            e.target.closest("tr").remove();
+
+            // Update the overall cart total in the DOM
+            const totalOrder = notDeletedItems.reduce((acc, elem) => acc + elem.total, 0);
+            console.log(totalOrder)
+            document.querySelector("[total-order]").innerText = totalOrder.toLocaleString();
 
             renderTourListInCart();
         });

@@ -1,0 +1,21 @@
+include ../../mixins/tour-card.pug
+
+doctype html
+head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet' href='/css/welcome.css')
+    title #{pageTitle}
+
+.container
+    .slide
+        each tour in tours
+            +tour-card(tour.image, tour.title, tour.desc)
+
+    .button
+        button.prev
+            i.fa-solid.fa-arrow-left
+        button.next
+            i.fa-solid.fa-arrow-right
+
+script(src='/js/welcome.js')

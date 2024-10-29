@@ -13,6 +13,9 @@ export const index = async (req: Request, res: Response): Promise<void> => {
 export const listJson = async (req: Request, res: Response): Promise<void> => {
     const tours = req.body;
 
+    // if (tours.length <= 0) {
+    //     res.json({ code: 400 })
+    // }
     if (tours.length > 0) {
         for (const tour of tours) {
             const tourInfo = await Tour.findOne({
@@ -32,6 +35,7 @@ export const listJson = async (req: Request, res: Response): Promise<void> => {
         };
 
         res.json({
+            code: 200,
             tours
         });
     }
