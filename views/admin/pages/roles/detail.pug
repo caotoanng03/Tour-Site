@@ -1,0 +1,11 @@
+extends ../../layouts/default.pug 
+block main 
+    h1(class="mb-4")=pageTitle 
+    hr
+    .mb-4 
+        strong Title: 
+        span #{role.title} 
+    //- TODO: MAKING A TALBE TO SHOW PERMISSION OF THIS ADMIN
+    .mb-4 
+        strong Short Description: 
+        span #{role.description}

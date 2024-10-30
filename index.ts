@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser"
 import session from "express-session"
 import clientRoutes from "./routes/client/index.route";
 import adminRoutes from "./routes/admin/index.route";
+import methodOverride from "method-override";
 import moment from "moment";
 import { systemConfig } from "./config/system";
 import path from "path";
@@ -28,6 +29,9 @@ app.set("view engine", "pug");
 app.use(cookieParser('ALITTLEBOZ'));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
+
+// Method override
+app.use(methodOverride("_method"));
 
 // TinyMCE
 app.use("/tinymce",
