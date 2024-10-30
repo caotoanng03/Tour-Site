@@ -1,12 +1,22 @@
 
 // Fetch data from servers and render tour items table
 const renderTourListInCart = () => {
+    const cartJson = localStorage.getItem("cart");
+    const cart = JSON.parse(cartJson);
+
+    if (cart.length <= 0) {
+        const cartContainer = document.querySelector('.cart-container');
+        console.log(cartContainer)
+        const html = `<div class="alert alert-error"> Your cart is empty. Please add some tours!</div>`;
+        cartContainer.innerHTML = html;
+    }
+
     fetch("/cart/list-json", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: localStorage.getItem("cart")
+        body: cartJson
     })
         .then(res => res.json())
         .then(data => {
@@ -21,7 +31,7 @@ const renderTourListInCart = () => {
                         <td>${element.discounted_price.toLocaleString()}$</td>
                         <td><input type="number" name="quantity" value=${element.quantity} min="1" item-id="${element.info.id}" style="width: 60px" /></td>
                         <td>${element.total.toLocaleString()}$</td>
-                        <td><button class="btn btn-danger" btn-delete="${element.info.id}">Remove</button></td>
+                        <td><button class="btn btn-danger" btn-delete="${element.info.id}"><i class="fa-regular fa-trash-can"></i></button></td>
                     </tr>
                     `;
                 });
@@ -53,15 +63,14 @@ const deleteTourInCart = () => {
             const notDeletedItems = cart.filter(elem => elem.tourId != tourId);
             localStorage.setItem("cart", JSON.stringify(notDeletedItems));
 
-            // Remove the specific row from the DOM
+            // remove order-item row from the DOM
             e.target.closest("tr").remove();
 
-            // Update the overall cart total in the DOM
+            // update the overall cart total in the DOM
             const totalOrder = notDeletedItems.reduce((acc, elem) => acc + elem.total, 0);
             console.log(totalOrder)
             document.querySelector("[total-order]").innerText = totalOrder.toLocaleString();
 
-            renderTourListInCart();
         });
     });
 };

@@ -55,13 +55,6 @@ main {
     flex-wrap: wrap;
 }
 
-.header .inner-menu>ul>li {
-    /* margin-left: 1.5rem; */
-    /* display: table-cell; */
-    /* position: relative; */
-    /* padding: 15px 0; */
-}
-
 .header .inner-menu>ul>li>a {
     color: #fff;
     font-size: 0.95rem;
@@ -460,3 +453,14 @@ main {
 }
 
 /* End Alert */
+
+/* Cart */
+
+[tour-list] [btn-delete] {
+    background-color: white;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+/* End Cart */

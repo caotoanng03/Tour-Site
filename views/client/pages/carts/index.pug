@@ -3,74 +3,75 @@ include ../../mixins/box-head.pug
 
 block main 
     .container.my-3 
-        .row 
-            .col-12
-                +box-head(pageTitle)
+        .cart-container
+            .row 
+                .col-12
+                    +box-head(pageTitle)
 
-        .row
-            .col-12
-                table(class="table table-bordered")
-                    thead
-                        tr
-                            th No.
-                            th Image
-                            th Title
-                            th Price
-                            th Quantity
-                            th Total
-                            th
-                    tbody(tour-list)
+            .row
+                .col-12
+                    table(class="table table-bordered")
+                        thead
+                            tr
+                                th No.
+                                th Image
+                                th Title
+                                th Price
+                                th Quantity
+                                th Total
+                                th
+                        tbody(tour-list)
 
-                h5(class="text-right mb-4") Order Summary: <span total-order><strong>0</strong></span>$
+                    h5(class="text-right mb-4") Order Summary: <span total-order><strong>0</strong></span>$
 
-        .row
-            .col-12
-                +box-head("Customer Information")
+            .row
+                .col-12
+                    +box-head("Customer Information")
 
-                form(form-order)
-                    div(class="form-group")
-                        label(for="fullName") Full Name
-                        input(
-                            type="text"
-                            class="form-control"
-                            id="fullName"
-                            name="fullName"
-                            value=(user && user.fullName ? user.fullName : "")
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="email") Email
-                        input(
-                            type="text"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            value=(user && user.email ? user.email : "")
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="phone") Phone Number
-                        input(
-                            type="text"
-                            class="form-control"
-                            id="phone"
-                            name="phone"
-                            value=(user && user.phone ? user.phone : "")
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="note") Note
-                        textarea(
-                            class="form-control"
-                            id="note"
-                            name="note"
-                            rows="2"
-                        )
-                    div(class="form-group")
-                        button(
-                            type="submit"
-                            class="btn btn-success btn-block"
-                        ) RESERVE NOW
+                    form(form-order)
+                        div(class="form-group")
+                            label(for="fullName") Full Name
+                            input(
+                                type="text"
+                                class="form-control"
+                                id="fullName"
+                                name="fullName"
+                                value=(user && user.fullName ? user.fullName : "")
+                                required
+                            )
+                        div(class="form-group")
+                            label(for="email") Email
+                            input(
+                                type="text"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                value=(user && user.email ? user.email : "")
+                                required
+                            )
+                        div(class="form-group")
+                            label(for="phone") Phone Number
+                            input(
+                                type="text"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                value=(user && user.phone ? user.phone : "")
+                                required
+                            )
+                        div(class="form-group")
+                            label(for="note") Note
+                            textarea(
+                                class="form-control"
+                                id="note"
+                                name="note"
+                                rows="2"
+                            )
+                        div(class="form-group")
+                            button(
+                                type="submit"
+                                class="btn btn-success btn-block"
+                            ) RESERVE NOW
 
 block script 
     script(src="/js/cart.js")
