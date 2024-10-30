@@ -3,6 +3,7 @@ import { systemConfig } from "../../config/system";
 import { categoryRoutes } from "./category.route";
 import { tourRoutes } from "../admin/tour.route";
 import { uploadRoutes } from "./upload.route";
+import { roleRoutes } from "./role.route";
 
 
 const adminRoutes = (app: Express): void => {
@@ -11,6 +12,8 @@ const adminRoutes = (app: Express): void => {
     app.use(`${PATH_ADMIN}/categories`, categoryRoutes);
 
     app.use(`${PATH_ADMIN}/tours`, tourRoutes);
+
+    app.use(`${PATH_ADMIN}/roles`, roleRoutes);
 
     app.use(`${PATH_ADMIN}/upload`, uploadRoutes);
 };

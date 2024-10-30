@@ -1,0 +1,52 @@
+extends ../../layouts/default.pug 
+
+block main 
+    h1(class="mb-4")=pageTitle 
+
+    .card.mb-3
+        .card-header Here is the list of role groups:
+        .card-body 
+            .row 
+                .col-8 
+                .col-4.text-right 
+                    a(
+                        href=`/${prefixAdmin}/roles/create`
+                        class="btn btn-outline-success"
+                    ) + New Role Group
+
+            table(
+                class="table table-hover table-sm"
+            )
+                thead 
+                    tr 
+                        th #
+                        th Title 
+                        th Short Desc
+                        th Action 
+                tbody 
+                    if(roles.length > 0)
+                        each item, index in roles
+                            tr 
+                                td #{index + 1} 
+                                td #{item.title}
+                                td #{item.description} 
+                                td
+                                    a(
+                                        href=`/${prefixAdmin}/roles/detail/${item.id}`
+                                        class="btn btn-dark btn-sm "
+                                    ) Detail
+                                    a(
+                                        href=`/${prefixAdmin}/roles/edit/${item.id}`
+                                        class="btn btn-dark btn-sm ml-1"
+                                    ) Edit
+                                    button(
+                                        class="btn btn-danger btn-sm ml-1"
+                                        data-id=item.id
+                                        delete-delete
+                                    ) Delete
+                    else 
+                        tr 
+                            td(
+                                colspan=4
+                                class="text-center"
+                            ) No role groups have been not created yet. Let's create one!
