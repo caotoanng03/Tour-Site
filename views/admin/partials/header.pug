@@ -10,8 +10,11 @@ header.header
                     a(
                         href=`/${prefixAdmin}/my-account`
                         class="btn btn-primary btn-sm mr-2"
-                    ) User01
+                    )
+                        i(class="fa-solid fa-user-shield ml-1")
+                        span.ml-1 #{admin && admin.fullName ? admin.fullName : "User01"}
                     a(
                         href=`/${prefixAdmin}/auth/logout`
                         class="btn btn-danger btn-sm"
-                    ) Sign out
+                    )
+                        i(class="fa-solid fa-right-from-bracket")

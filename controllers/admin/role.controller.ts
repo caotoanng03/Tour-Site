@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import Role from "../../models/role.model";
 import { systemConfig } from "../../config/system";
-import { where } from "sequelize";
+import sequelize from "../../config/database";
+import RolePermission from "../../models/roles_permissions.model";
+import Permission from "../../models/permission.model";
+import { Sequelize } from "sequelize";
 
 // [GET] /admin/roles/
 export const index = async (req: Request, res: Response) => {
@@ -133,5 +136,95 @@ export const deleteRole = async (req: Request, res: Response) => {
     }
 }
 
+// [GET] /admin/roles/permissions
+export const permissions = async (req: Request, res: Response) => {
+    let roles = [];
+
+    const roleRecords = await Role.findAll({
+        attributes: ['id', 'title'],
+        where: {
+            deleted: false
+        }
+    });
+
+    for (const role of roleRecords) {
+        const id = role.dataValues.id;
+
+        let roleItem = {
+            id,
+            title: role.dataValues.title
+        }
+
+        const permissionRecords = await sequelize.query(`
+            SELECT rp.*, p.title
+            FROM roles_permissions rp
+            JOIN permissions p ON rp.permissionId = p.id
+            WHERE rp.roleId = :id
+        `, {
+            replacements: { id },
+            type: Sequelize['QueryTypes'].SELECT,
+            raw: true
+        });
+
+        const permission = permissionRecords.map(permission => permission['title']);
+        roleItem['permissions'] = permission;
+
+        roles[roles.length] = roleItem;
+    }
+
+    res.render(`admin/pages/roles/permission.pug`, {
+        pageTitle: 'Access Control',
+        roles
+    })
+}
+
+
+// [PATCH] /admin/roles/permissions
+export const permissionsPatch = async (req, res: Response) => {
+    const roles = JSON.parse(req.body.permissions);
+
+    for (const role of roles) {
+        const roleId = role.id;
+        const permissionsList = role.permissions.map(permission => `'${permission}'`).join(', ');
+
+        // add vao bang roles_permissions nhung quen moi, trùng thì bỏ qua
+        // if permissions is empty, then do nothing
+        if (role.permissions.length > 0) {
+            await sequelize.query(`
+                INSERT IGNORE INTO roles_permissions (roleId, permissionId)
+                SELECT :roleId, p.id
+                FROM permissions p
+                WHERE p.title IN (${permissionsList});
+                `, {
+                replacements: { roleId },
+                raw: true
+            });
+        }
+
+        // xoá records không có trong mảng permissions
+        if (role.permissions.length > 0) {
+            await sequelize.query(`
+                DELETE FROM roles_permissions
+                WHERE roleId = :roleId
+                AND permissionId NOT IN (
+                    SELECT id FROM permissions WHERE title IN (${permissionsList})
+                );
+                `, {
+                replacements: { roleId },
+                raw: true
+            })
+        } else {
+            // permissions is []
+            await RolePermission.destroy({
+                where: {
+                    roleId: roleId
+                }
+            });
+        }
+    }
+
+    req.flash('success', 'Permissions applied!');
+    res.redirect(`back`);
+}
 
 

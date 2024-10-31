@@ -1,0 +1,24 @@
+mixin permission-grid(permissionName, permissionDataName)
+    tr 
+        td(colspan=roles.length + 1)
+            strong #{permissionName}
+    tr(data-name=`${permissionDataName}_view`)
+        td View
+        each item in roles 
+            td(class="text-center")
+                input(type="checkbox")
+    tr(data-name=`${permissionDataName}_create`)
+        td Add
+        each item in roles 
+            td(class="text-center")
+                input(type="checkbox")
+    tr(data-name=`${permissionDataName}_edit`)
+        td Edit
+        each item in roles 
+            td(class="text-center")
+                input(type="checkbox")
+    tr(data-name=`${permissionDataName}_delete`)
+        td Delete
+        each item in roles 
+            td(class="text-center")
+                input(type="checkbox")

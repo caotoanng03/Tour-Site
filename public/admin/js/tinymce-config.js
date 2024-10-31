@@ -1,4 +1,3 @@
-console.log("Go here!")
 const listTextareaMCE = document.querySelectorAll("[textarea-mce]");
 
 if (listTextareaMCE.length > 0) {

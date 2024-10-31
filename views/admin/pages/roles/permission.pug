@@ -1,0 +1,56 @@
+extends ../../layouts/default.pug 
+include ../../mixins/permission-grid.pug 
+include ../../mixins/alert.pug
+
+block main 
+    h1(class="mb-4")=pageTitle 
+
+    +alert-success(3000)
+
+    div(class="text-right")
+        button(
+            type="submit"
+            class="btn btn-primary mb-3"
+            button-submit
+        ) Apply Changes
+
+    div(data-records=roles)
+
+    table(
+        class="table table-hover table-sm"
+        table-permissions
+    )
+        thead()
+            tr 
+                th Permission
+                each item in roles 
+                    th(class="text-center") #{item.title} 
+        tbody 
+            tr(data-name="id" class="d-none")
+                td 
+                each item in roles 
+                    td(class="text-center")
+                        input(
+                            type="text"
+                            value=item.id
+                        )
+            +permission-grid("Tour Management", "tour")
+            tr(data-name=`roles_permissions`)
+                td Access Control Panel
+                each item in roles
+                    td(class="text-center")
+                        input(type="checkbox")
+    form(
+        id="form-change-permissions"
+        method="POST"
+        action=`/${prefixAdmin}/roles/permissions?_method=PATCH`
+        class="d-none"
+    )   
+        div(class="form-group")
+            input(
+                type="text"
+                class="form-control"
+                name="permissions"
+            )
+
+    script(src="/admin/js/role.js")
