@@ -8,25 +8,32 @@ export const login = async (req: Request, res: Response) => {
 
     const token = req.cookies.token;
 
-    if (token) {
-        const account = await Admin.findOne({
-            attributes: { exclude: ['password', 'token'] },
-            where: {
-                token: token,
-                deleted: false,
-                status: 'active'
-            }
-        })
+    if (!token) {
+        res.render(`admin/pages/auth/login.pug`, {
+            pageTitle: 'Admin Login'
+        });
+        return;
+    }
 
-        if (account) {
-            res.redirect(`/${systemConfig.prefixAdmin}/dashboard`);
-            return;
+    const account = await Admin.findOne({
+        attributes: { exclude: ['password', 'token'] },
+        where: {
+            token: token,
+            deleted: false,
+            status: 'active'
         }
-    };
-
-    res.render(`admin/pages/auth/login.pug`, {
-        pageTitle: 'Admin Login'
     })
+
+    if (!account) {
+        res.render(`admin/pages/auth/login.pug`, {
+            pageTitle: 'Admin Login'
+        })
+        return;
+    }
+
+    console.log('da vao toi day');
+
+    res.redirect(`/${systemConfig.prefixAdmin}/dashboard`);
 }
 
 // [POST] /admin/auth/login
