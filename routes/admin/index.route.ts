@@ -5,10 +5,16 @@ import { tourRoutes } from "../admin/tour.route";
 import { uploadRoutes } from "./upload.route";
 import { roleRoutes } from "./role.route";
 import { accountRoutes } from "./account.route";
+import { authRoutes } from "./auth.route";
+import { dashboardRoutes } from "./dashboard.route";
 
 
 const adminRoutes = (app: Express): void => {
     const PATH_ADMIN = `/${systemConfig.prefixAdmin}`;
+
+    app.use(`${PATH_ADMIN}/auth`, authRoutes);
+
+    app.use(`${PATH_ADMIN}/dashboard`, dashboardRoutes);
 
     app.use(`${PATH_ADMIN}/accounts`, accountRoutes);
 
