@@ -1,0 +1,26 @@
+extends ../../layouts/default.pug 
+block main  
+    h1(class="mb-4")=pageTitle
+    hr 
+    if(account.avatar)
+        div(class="mb-4 admin-detail-avatar")
+            img(
+                src=account.avatar 
+                alt=account.fullName 
+            )
+    div(class="mb-4")
+        strong Full Name' Admin: 
+        span #{account.fullName} 
+    if(account.role.title)
+        div(class="mb-4")
+            strong Role: 
+            span #{account.role.title} 
+    div(class="mb-4") 
+        strong Status: 
+        span #{account.status} 
+    div(class="mb-4")
+        strong Email: 
+        span #{account.email}
+    div(class="mb-4")
+        strong Phone Number: 
+        span #{account.phone} 
