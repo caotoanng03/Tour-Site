@@ -6,6 +6,14 @@ import md5 from "md5";
 
 // [GET] /admin/accounts/
 export const index = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('account_view')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const accounts = await Admin.findAll({
         attributes: { exclude: ['password', 'token'] },
         where: {
@@ -31,6 +39,14 @@ export const index = async (req: Request, res: Response) => {
 
 // [GET] /admin/accounts/create
 export const create = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('account_create')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roles = await Role.findAll({
         where: {
             deleted: false
@@ -45,6 +61,14 @@ export const create = async (req: Request, res: Response) => {
 
 // [POST] /admin/accounts/create
 export const createPost = async (req: Request, res: Response) => {
+
+    if (!res.locals.role.permissions.includes('account_create')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
 
     const accountAdminObject = {
         fullName: req.body.fullName,
@@ -71,6 +95,14 @@ export const createPost = async (req: Request, res: Response) => {
 
 // [GET] /admin/accounts/edit/:id
 export const edit = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('account_edit')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const accountId: string = `${req.params.id}`;
 
     try {
@@ -102,7 +134,13 @@ export const edit = async (req: Request, res: Response) => {
 
 // [PATCH] /admin/accounts/edit/:id
 export const editPatch = async (req: Request, res: Response) => {
-    console.log(req.body)
+    if (!res.locals.role.permissions.includes('account_edit')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
     const accountId = `${req.params.id}`;
 
     const accountAdminObject = {
@@ -138,6 +176,14 @@ export const editPatch = async (req: Request, res: Response) => {
 
 // [DELETE] /admin/accounts/edit/:id
 export const deleteAccount = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('account_delete')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const accountId = `${req.params.id}`;
 
     await Admin.update(
@@ -154,6 +200,14 @@ export const deleteAccount = async (req: Request, res: Response) => {
 
 // [GET] /admin/accounts/detail/:id
 export const detail = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('account_view')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const accountId: string = `${req.params.id}`;
 
     try {

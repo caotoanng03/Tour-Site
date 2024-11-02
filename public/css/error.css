@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Nova+Mono');
+
+:root {
+    --font-header: 'Nova Mono', monospace;
+    --font-text: 'Open Sans', sans-serif;
+    --color-theme: #F1EEDB;
+    --color-bg: #212529;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    font-family: var(--font-text);
+    color: var(--color-theme);
+    background: var(--color-bg);
+}
+
+.container {
+    width: 100%;
+    /* height: 100vh; */
+    position: absolute;
+    top: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.container h1 {
+    font-family: var(--font-header);
+    font-size: calc(4rem + 2vw);
+    text-transform: uppercase;
+}
+
+.container p {
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 2rem;
+    margin: 1.5rem 0 3rem;
+}

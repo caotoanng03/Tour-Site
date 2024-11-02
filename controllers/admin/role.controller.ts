@@ -8,6 +8,13 @@ import { Sequelize } from "sequelize";
 
 // [GET] /admin/roles/
 export const index = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_view')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
 
     const roles = await Role.findAll({
         where: {
@@ -23,6 +30,13 @@ export const index = async (req: Request, res: Response) => {
 
 // [GET] /admin/roles/create
 export const create = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_create')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
 
     res.render(`admin/pages/roles/create.pug`, {
         pageTitle: 'Add New Role'
@@ -31,6 +45,14 @@ export const create = async (req: Request, res: Response) => {
 
 // [POST] /admin/roles/create
 export const createPost = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_create')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roleObject = {
         title: req.body.title
     }
@@ -45,6 +67,14 @@ export const createPost = async (req: Request, res: Response) => {
 
 // [GET] /admin/roles/edit/:id
 export const edit = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_edit')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roleId = `${req.params.id}`;
 
     try {
@@ -68,6 +98,14 @@ export const edit = async (req: Request, res: Response) => {
 
 // [PATCH] /admin/roles/edit/:id
 export const editPatch = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_edit')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roleId = `${req.params.id}`;
 
     try {
@@ -98,6 +136,14 @@ export const editPatch = async (req: Request, res: Response) => {
 
 // [GET] /admin/roles/detail/:id
 export const detail = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_view')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roleId: string = `${req.params.id}`;
 
     try {
@@ -120,6 +166,14 @@ export const detail = async (req: Request, res: Response) => {
 
 // [DELETE] /admin/roles/delete/:id
 export const deleteRole = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('role_delete')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roleId: string = `${req.params.id}`;
 
     try {
@@ -138,6 +192,14 @@ export const deleteRole = async (req: Request, res: Response) => {
 
 // [GET] /admin/roles/permissions
 export const permissions = async (req: Request, res: Response) => {
+    if (!res.locals.role.permissions.includes('roles_permissions')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     let roles = [];
 
     const roleRecords = await Role.findAll({
@@ -181,6 +243,14 @@ export const permissions = async (req: Request, res: Response) => {
 
 // [PATCH] /admin/roles/permissions
 export const permissionsPatch = async (req, res: Response) => {
+    if (!res.locals.role.permissions.includes('roles_permissions')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const roles = JSON.parse(req.body.permissions);
 
     for (const role of roles) {

@@ -7,7 +7,14 @@ import { generateTourCode } from "../../helpers/generate";
 
 // [GET] /admin/tours
 export const index = async (req: Request, res: Response): Promise<void> => {
-    // select * from tours where deleted = false;
+    if (!res.locals.role.permissions.includes('tour_view')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const tours = await Tour.findAll({
         where: {
             deleted: false
@@ -32,8 +39,15 @@ export const index = async (req: Request, res: Response): Promise<void> => {
 
 // [GET] /admin/tours/create
 export const create = async (req: Request, res: Response): Promise<void> => {
-    // select * from categories where deleted = false and status = 'active';
+    if (!res.locals.role.permissions.includes('tour_create')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
 
+    // select * from categories where deleted = false and status = 'active';
     const categories = await Category.findAll({
         where: {
             deleted: false,
@@ -51,6 +65,14 @@ export const create = async (req: Request, res: Response): Promise<void> => {
 
 // [POST] /admin/tours/create
 export const createPost = async (req: Request, res: Response): Promise<void> => {
+    if (!res.locals.role.permissions.includes('tour_create')) {
+        res.render(`errors/error.pug`, {
+            code: 403,
+            title: 'Forbidden'
+        })
+        return;
+    }
+
     const numberOfAllTour = await Tour.count({});
 
     const code = generateTourCode(numberOfAllTour + 1);
