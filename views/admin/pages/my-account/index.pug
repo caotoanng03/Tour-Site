@@ -1,0 +1,40 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+
+block main 
+    h1(class="mb-4")=pageTitle 
+
+    +alert-success(3000)
+    +alert-error(5000)
+
+    hr
+    if(admin && admin.avatar)
+        img(
+            class="admin-avatar"
+            src=admin.avatar
+            width=250
+            height=250
+            class="mb-3"
+        )
+    //- else 
+    //-     img(
+    //-         src="admin/imges/avatar.png"
+    //-         width=150
+    //-         class="mb-3"
+    //-     )
+    .mb-3 
+        strong Full Name: 
+        span #{admin.fullName ? admin.fullName : "Did not set name!"}
+    .mb-3 
+        strong Role: 
+        span #{role.title ? role.title : "Sorry Dude! You don't have any authorities!"}
+    .mb-3 
+        strong Email: 
+        span #{admin.email ? admin.email : "Did not set email!"}
+    .mb-3 
+        strong Phone: 
+        span #{admin.phone ? admin.phone : "Did not set phone!"}
+    a(
+        href=`/${prefixAdmin}/my-account/edit`
+        class=`btn btn-primary`
+    ) Edit Profile

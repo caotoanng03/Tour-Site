@@ -1,0 +1,113 @@
+extends ../../layouts/default.pug 
+
+block main  
+    h1(class="mb-4")=pageTitle
+
+    form(
+        action=`/${prefixAdmin}/my-account/edit?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+    )
+
+        div(class="form-group")
+            label(for="fullName") Full Name *
+            input(
+                type="text"
+                id="fullName"
+                name="fullName"
+                value=(admin.fullName? admin.fullName : "")
+                class="form-control"
+            )
+        div(class="form-group")
+            label(for="email") Email *
+            input(
+                type="text"
+                id="email"
+                name="email"
+                value=(admin.email ? admin.email : "")
+                class="form-control"
+            )
+        div(class="form-group")
+            label(for="phone") Phone Number *
+            input(
+                type="text"
+                id="phone"
+                name="phone"
+                value=(admin.phone ? admin.phone : "")
+                class="form-control"
+            )
+        //- if(role.permissions.includes('roles_permissions'))
+        div(class="form-group")
+            label(for="role") Role here *
+            select(
+                id="role"
+                name="roleId"
+                class="form-control"
+            )
+                each item in roles 
+                    option(
+                        value=item.id
+                        selected=(item.id == role.id ? true : false)    
+                    )=item.title
+
+        //- else
+        //-     div(class="form-group")
+        //-         label(for="role") Role *
+        //-         input(
+        //-             type="text"
+        //-             id="role"
+        //-             name="roleId"
+        //-             value=(role.title ? role.title : "")
+        //-             class="form-control"
+        //-             readonly
+        //-         )
+        //- if(role.permissions.includes('roles_permissions'))
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                id="active"
+                name="status"
+                value="active"
+                class="form-check-input"
+                checked=(admin.status == "active" ? true : false)
+            )
+            label(for="active" class="form-check-label") Active
+
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                id="inactive"
+                name="status"
+                value="inactive"
+                class="form-check-input"
+                checked=(admin.status == "inactive" ? true : false)
+            )
+            label(for="inactive" class="form-check-label") Inactive
+
+        div(
+            class="form-group"
+            upload-image
+        )
+            label(for="avatar") Avatar 
+            input(
+                type="file"
+                id="avatar"
+                class="form-control-file"
+                name="avatar"
+                upload-image-input
+            )
+            img(
+                src=(admin.avatar ? admin.avatar: "")
+                class="image-preview"
+                upload-image-preview
+            )
+        div(class="form-group")
+            a(
+                onclick="history.back();"
+                class="btn btn-secondary ml-1"
+                aria-label="Close"
+            ) Cancel
+            button(
+                type="submit"
+                class="btn btn-outline-primary ml-1"
+            ) Apply
