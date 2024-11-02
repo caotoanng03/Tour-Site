@@ -79,8 +79,6 @@ export const loginPost = async (req, res: Response): Promise<void> => {
         res.redirect('back');
         return;
     }
-    console.log(password)
-    console.log(user.dataValues.password)
 
     if (md5(password) !== user.dataValues.password) {
         req.flash('error', 'Password is incorrect!');

@@ -1,76 +1,80 @@
 extends ../../layouts/default.pug
 
 block main
-    h1(class="mb-4") #{pageTitle}
+    if (role.permissions.includes('tour_view'))
 
+        h1(class="mb-4") #{pageTitle}
 
-    .card.mb-3
-        .card-header Tour List
-        .card-body
-            .row
-                .col-8
+        .card.mb-3
+            .card-header Tour List
+            .card-body
+                .row
+                    .col-8
 
-                .col-4.text-right
-                    a(
-                        href=`/${prefixAdmin}/tours/create`
-                        class="btn btn-outline-success"
-                    ) + New
+                    .col-4.text-right
+                        if (role.permissions.includes('tour_create'))
+                            a(
+                                href=`/${prefixAdmin}/tours/create`
+                                class="btn btn-outline-success"
+                            ) + New
 
-            table(
-                class="table table-hover table-sm mt-3"
-            )
-                thead
-                    tr
-                        th No.
-                        th Image
-                        th Title
-                        th Price
-                        th % Discount
-                        th Discounted Price
-                        th Stock
-                        th Status
-                        th Position
-                        th Action
+                table(
+                    class="table table-hover table-sm mt-3"
+                )
+                    thead
+                        tr
+                            th No.
+                            th Image
+                            th Title
+                            th Price
+                            th % Discount
+                            th Discounted Price
+                            th Stock
+                            th Status
+                            th Position
+                            th Action
 
-                tbody
-                    each item, index in tours
-                        tr 
-                            td #{index+1}
-                            td
-                                img(
-                                    src=item.image
-                                    alt=item.title
-                                    width="100px"
-                                    height="auto"
-                                )
-                            td #{item.title}
-                            td #{item.price.toLocaleString()}VND
-                            td #{item.discount}%
-                            td #{item.discounted_price.toLocaleString()}VND
-                            td #{item.stock}
-                            td
-                                if (item.status === "active")
+                    tbody
+                        each item, index in tours
+                            tr 
+                                td #{index+1}
+                                td
+                                    img(
+                                        src=item.image
+                                        alt=item.title
+                                        width="100px"
+                                        height="auto"
+                                    )
+                                td #{item.title}
+                                td #{item.price.toLocaleString()}VND
+                                td #{item.discount}%
+                                td #{item.discounted_price.toLocaleString()}VND
+                                td #{item.stock}
+                                td
+                                    if (item.status === "active")
+                                        a(
+                                            href="javascript:;"
+                                            class="badge badge-success"
+                                        ) Active
+                                    else
+                                        a(
+                                            href="javascript:;"
+                                            class="badge badge-danger"
+                                        ) Inactive
+                                td #{item.position}
+                                td
                                     a(
-                                        href="javascript:;"
-                                        class="badge badge-success"
-                                    ) Active
-                                else
-                                    a(
-                                        href="javascript:;"
-                                        class="badge badge-danger"
-                                    ) Inactive
-                            td #{item.position}
-                            td
-                                a(
-                                    class="btn btn-secondary btn-sm"
-                                    href=`/${prefixAdmin}/tours/detail/${item.id}`
-                                ) Detail
-                                a(
-                                    class="btn btn-warning btn-sm ml-1"
-                                    href=`/${prefixAdmin}/tours/edit/${item.id}`
-                                ) Edit
-                                button(
-                                    class="btn btn-danger btn-sm ml-1"
-                                    button-delete
-                                    data-id=item.id
-                                ) Delete
+                                        class="btn btn-secondary btn-sm"
+                                        href=`/${prefixAdmin}/tours/detail/${item.id}`
+                                    ) Detail
+                                    if (role.permissions.includes('tour_edit'))
+                                        a(
+                                            class="btn btn-warning btn-sm ml-1"
+                                            href=`/${prefixAdmin}/tours/edit/${item.id}`
+                                        ) Edit
+                                    if (role.permissions.includes('tour_delete'))
+                                        button(
+                                            class="btn btn-danger btn-sm ml-1"
+                                            button-delete
+                                            data-id=item.id
+                                        ) Delete

@@ -1,19 +1,27 @@
 .sider
     .inner-menu
         ul
-            li
-                a(href=`/${prefixAdmin}/dashboard`) Dashboard
-            li
-                a(href=`/${prefixAdmin}/categories`) Category
-            li
-                a(href=`/${prefixAdmin}/tours`) Tour
-            li
-                a(href=`/${prefixAdmin}/roles`) Role
-            li
-                a(href=`/${prefixAdmin}/roles/permissions`) Access Control
-            li
-                a(href=`/${prefixAdmin}/accounts`) Admin account
-            li
-                a(href=`/${prefixAdmin}/users`) User account
-            li
-                a(href=`/${prefixAdmin}/settings/general`) General setting
+            if (role.permissions.includes('dashboard_view'))
+                li
+                    a(href=`/${prefixAdmin}/dashboard`) Dashboard
+            if (role.permissions.includes('category_view'))
+                li
+                    a(href=`/${prefixAdmin}/categories`) Category
+            if (role.permissions.includes('tour_view'))
+                li
+                    a(href=`/${prefixAdmin}/tours`) Tour
+            if (role.permissions.includes('role_view'))
+                li
+                    a(href=`/${prefixAdmin}/roles`) Role
+            if (role.permissions.includes('roles_permissions'))
+                li
+                    a(href=`/${prefixAdmin}/roles/permissions`) Access Control
+            if (role.permissions.includes('account_view'))
+                li
+                    a(href=`/${prefixAdmin}/accounts`) Admin account
+            if (role.permissions.includes('user_view'))
+                li
+                    a(href=`/${prefixAdmin}/users`) User account
+            if (role.permissions.includes('general_setting'))
+                li
+                    a(href=`/${prefixAdmin}/settings/general`) General setting

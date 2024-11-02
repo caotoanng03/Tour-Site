@@ -187,7 +187,7 @@ export const permissionsPatch = async (req, res: Response) => {
         const roleId = role.id;
         const permissionsList = role.permissions.map(permission => `'${permission}'`).join(', ');
 
-        // add vao bang roles_permissions nhung quen moi, trùng thì bỏ qua
+        // chen vao bang roles_permissions, trùng thì bỏ qua
         // if permissions is empty, then do nothing
         if (role.permissions.length > 0) {
             await sequelize.query(`
@@ -201,6 +201,7 @@ export const permissionsPatch = async (req, res: Response) => {
             });
         }
 
+        // hard delete
         // xoá records không có trong mảng permissions
         if (role.permissions.length > 0) {
             await sequelize.query(`

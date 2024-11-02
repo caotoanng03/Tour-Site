@@ -31,8 +31,6 @@ export const login = async (req: Request, res: Response) => {
         return;
     }
 
-    console.log('da vao toi day');
-
     res.redirect(`/${systemConfig.prefixAdmin}/dashboard`);
 }
 
@@ -46,7 +44,7 @@ export const loginPost = async (req: Request, res: Response) => {
         }
     })
 
-    if (!email) {
+    if (!account) {
         req['flash']('error', 'Email is incorrect!');
         res.redirect('back');
         return;

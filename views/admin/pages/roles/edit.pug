@@ -1,37 +1,37 @@
 extends ../../layouts/default.pug 
 
 block main 
+    if (role.permissions.includes('role_edit'))
+        h1(class="mb-4")=pageTitle 
 
-    h1(class="mb-4")=pageTitle 
+        form(
+            action=`/${prefixAdmin}/roles/edit/${role.id}?_method=PATCH`
+            method="POST"
+        )
+            div(class="form-group")
+                label(for="title") Title 
+                input(
+                    type="text"
+                    id="title"
+                    name="title"
+                    class="form-control"
+                    value=role.title
+                    required
+                )
 
-    form(
-        action=`/${prefixAdmin}/roles/edit/${role.id}?_method=PATCH`
-        method="POST"
-    )
-        div(class="form-group")
-            label(for="title") Title 
-            input(
-                type="text"
-                id="title"
-                name="title"
-                class="form-control"
-                value=role.title
-                required
-            )
+            div(class="form-group")
+                label(for="desc") Short Description 
+                input(
+                    type="text"
+                    id="desc"
+                    name="desc"
+                    class="form-control"
+                    if (role.description)
+                        value=role.description
+                )
 
-        div(class="form-group")
-            label(for="desc") Short Description 
-            input(
-                type="text"
-                id="desc"
-                name="desc"
-                class="form-control"
-                if (role.description)
-                    value=role.description
-            )
-
-        div(class="form-group")
-            button(
-                type="submit"
-                class="btn btn-primary"
-            ) Update
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Update

@@ -2,83 +2,86 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
+    if (role.permissions.includes('account_view'))
+        h1(class="mb-4")=pageTitle 
 
-    h1(class="mb-4")=pageTitle 
+        +alert-success(3000)
 
-    +alert-success(3000)
-
-    .card.mb-3 
-        .card-header Here is the list of admin accounts 
-        .card-body 
-            .row 
-                .col-8 
-                .col-4.text-right 
-                    a(
-                        href=`/${prefixAdmin}/accounts/create`
-                        class="btn btn-outline-success"
-                    ) + New Admin Account
-            table(
-                class="table table-hover table-sm"
-            )
-                if(accounts.length > 0)
-                    thead 
-                        tr 
-                            th #
-                            th avatar
-                            th Full Name 
-                            th Role 
-                            th Email 
-                            th Status 
-                            th Action 
-                    tbody 
-                        each item, index in accounts 
+        .card.mb-3 
+            .card-header Here is the list of admin accounts 
+            .card-body 
+                .row 
+                    .col-8 
+                    .col-4.text-right 
+                        if (role.permissions.includes('account_create'))
+                            a(
+                                href=`/${prefixAdmin}/accounts/create`
+                                class="btn btn-outline-success"
+                            ) + New Admin Account
+                table(
+                    class="table table-hover table-sm"
+                )
+                    if(accounts.length > 0)
+                        thead 
                             tr 
-                                td #{index + 1}
-                                td
-                                    img(
-                                        class="admin-avatar"
-                                        src=(item.avatar ? item.avatar : "/images/default-admin.png")
-                                        alt=item.fullName
-                                        width=55
-                                        height=55
-                                    )
-                                td #{item.fullName}
-                                td #{item.role && item.role.title ? item.role.title : "None"}
-                                td #{item.email ? item.email : "None"}
-                                td 
-                                    if(item.status === "active")
+                                th #
+                                th avatar
+                                th Full Name 
+                                th Role 
+                                th Email 
+                                th Status 
+                                th Action 
+                        tbody 
+                            each item, index in accounts 
+                                tr 
+                                    td #{index + 1}
+                                    td
+                                        img(
+                                            class="admin-avatar"
+                                            src=(item.avatar ? item.avatar : "/images/default-admin.png")
+                                            alt=item.fullName
+                                            width=55
+                                            height=55
+                                        )
+                                    td #{item.fullName}
+                                    td #{item.role && item.role.title ? item.role.title : "None"}
+                                    td #{item.email ? item.email : "None"}
+                                    td 
+                                        if(item.status === "active")
+                                            a(
+                                                href="javascript;"
+                                                class="badge badge-success"
+                                                data-status="active"
+                                            ) Active
+                                        else
+                                            a(
+                                                href="javascript;"
+                                                class="badge badge-danger"
+                                                data-status="inactive"
+                                            ) Inactive
+                                    td 
                                         a(
-                                            href="javascript;"
-                                            class="badge badge-success"
-                                            data-status="active"
-                                        ) Active
-                                    else
-                                        a(
-                                            href="javascript;"
-                                            class="badge badge-danger"
-                                            data-status="inactive"
-                                        ) Inactive
-                                td 
-                                    a(
-                                        href=`/${prefixAdmin}/accounts/detail/${item.id}`
-                                        class="btn btn-dark btn-sm"
-                                    ) Detail
-                                    a(
-                                        href=`/${prefixAdmin}/accounts/edit/${item.id}`
-                                        class="btn btn-dark btn-sm ml-1"
-                                    ) Edit
-                                    button(
-                                        data-id=item.id
-                                        class="btn btn-danger btn-sm ml-1"
-                                        button-delete
-                                    ) Delete
-                else  
-                    tr  
-                        td.text-center You have not created any accounts yet. Let's create one!
+                                            href=`/${prefixAdmin}/accounts/detail/${item.id}`
+                                            class="btn btn-dark btn-sm"
+                                        ) Detail
+                                        if (role.permissions.includes('account_edit'))
+                                            a(
+                                                href=`/${prefixAdmin}/accounts/edit/${item.id}`
+                                                class="btn btn-dark btn-sm ml-1"
+                                            ) Edit
+                                        if (role.permissions.includes('account_delete'))
+                                            button(
+                                                data-id=item.id
+                                                class="btn btn-danger btn-sm ml-1"
+                                                button-delete
+                                            ) Delete
+                    else  
+                        tr  
+                            td.text-center You have not created any accounts yet. Let's create one!
 
-        form(
-            id="form-delete-item"
-            method="POST"
-            action=""
-            data-path=`/${prefixAdmin}/accounts/delete`
-        )
+            form(
+                id="form-delete-item"
+                method="POST"
+                action=""
+                data-path=`/${prefixAdmin}/accounts/delete`
+            )
