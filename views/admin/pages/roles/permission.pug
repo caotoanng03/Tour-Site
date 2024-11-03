@@ -45,11 +45,6 @@ block main
                     each item in roles
                         td(class="text-center")
                             input(type="checkbox")
-                tr(data-name=`dashboard_view`)
-                    td Dashboard
-                    each item in roles
-                        td(class="text-center")
-                            input(type="checkbox")
                 +permission-grid("Tour Management", "tour")
                 +permission-grid("Category Management", "category")
                 +permission-grid("Admin Account Management", "account")

@@ -6,6 +6,7 @@ const upload = multer()
 
 import * as controller from "../../controllers/admin/account.controller";
 import * as uploadCloud from "../../middlewares/admin/uploadCloud.middleware";
+import * as validate from "../../validates/admin/account.validate";
 
 
 router.get(`/`, controller.index);
@@ -16,6 +17,7 @@ router.post(
     `/create`,
     upload.single('avatar'),
     uploadCloud.uploadSingle,
+    validate.createPost,
     controller.createPost
 )
 
@@ -25,6 +27,7 @@ router.patch(
     `/edit/:id`,
     upload.single('avatar'),
     uploadCloud.uploadSingle,
+    validate.editPatch,
     controller.editPatch
 );
 

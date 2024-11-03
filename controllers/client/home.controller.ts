@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Tour from "../../models/tour.model";
 
 
-// [GET] /welcome
+// [GET] /
 export const welcome = async (req: Request, res: Response) => {
 
     const allTourRecords = await Tour.findAll({
@@ -10,7 +10,8 @@ export const welcome = async (req: Request, res: Response) => {
         where: {
             deleted: false,
             status: 'active'
-        }
+        },
+        limit: 10
     })
 
     const tours = allTourRecords.map(item => ({

@@ -1,9 +1,8 @@
 .sider
     .inner-menu
         ul
-            if (role.permissions.includes('dashboard_view'))
-                li
-                    a(href=`/${prefixAdmin}/dashboard`) Dashboard
+            li
+                a(href=`/${prefixAdmin}/dashboard`) Dashboard
             if (role.permissions.includes('category_view'))
                 li
                     a(href=`/${prefixAdmin}/categories`) Category

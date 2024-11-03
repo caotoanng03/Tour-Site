@@ -78,7 +78,7 @@ export const edit = async (req: Request, res: Response) => {
     const roleId = `${req.params.id}`;
 
     try {
-        const role = await Role.findOne({
+        const roleFromDB = await Role.findOne({
             where: {
                 id: roleId,
                 deleted: false
@@ -87,7 +87,7 @@ export const edit = async (req: Request, res: Response) => {
 
         res.render(`admin/pages/roles/edit.pug`, {
             pageTitle: 'Edit Role',
-            role
+            roleFromDB
         })
     } catch (err) {
         //  TODO: redirect to 404 page
@@ -147,7 +147,7 @@ export const detail = async (req: Request, res: Response) => {
     const roleId: string = `${req.params.id}`;
 
     try {
-        const role = await Role.findOne({
+        const roleFromDB = await Role.findOne({
             where: {
                 id: roleId,
                 deleted: false
@@ -156,7 +156,7 @@ export const detail = async (req: Request, res: Response) => {
 
         res.render(`admin/pages/roles/detail.pug`, {
             pageTitle: 'Role Detail',
-            role
+            roleFromDB
         })
     } catch (error) {
         //  TODO: redirect to 404 page

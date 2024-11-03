@@ -7,7 +7,7 @@ block main
 
 
         .card.mb-3
-            .card-header Category List
+            //- .card-header Category List
             .card-body
                 .row
                     .col-8
@@ -29,6 +29,7 @@ block main
                             th Image
                             th Title
                             th Status
+                            th Position
                             th Action
 
                     tbody
@@ -54,6 +55,7 @@ block main
                                             href="javascript:;"
                                             class="badge badge-danger"
                                         ) Inactive
+                                td #{item.position}
                                 td
                                     a(
                                         class="btn btn-secondary btn-sm"

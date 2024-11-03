@@ -5,7 +5,7 @@ block main
     if (role.permissions.includes('account_create'))
         h1(class="mb-4")=pageTitle
 
-        +alert-success(3000)
+        +alert-error(5000)
 
         form(
             action=`/${prefixAdmin}/accounts/create`
@@ -106,6 +106,12 @@ block main
                 )
                 label(for="statusInactive" class="form-check-label") Inactive
             div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel
+
                 button(
                     type="submit"
                     class="btn btn-primary"

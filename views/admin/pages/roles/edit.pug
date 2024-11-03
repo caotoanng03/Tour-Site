@@ -1,11 +1,15 @@
 extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
 
-block main 
+block main
+
     if (role.permissions.includes('role_edit'))
         h1(class="mb-4")=pageTitle 
 
+        +alert-error(5000)
+
         form(
-            action=`/${prefixAdmin}/roles/edit/${role.id}?_method=PATCH`
+            action=`/${prefixAdmin}/roles/edit/${roleFromDB.id}?_method=PATCH`
             method="POST"
         )
             div(class="form-group")
@@ -15,7 +19,7 @@ block main
                     id="title"
                     name="title"
                     class="form-control"
-                    value=role.title
+                    value=roleFromDB.title
                     required
                 )
 
@@ -26,11 +30,17 @@ block main
                     id="desc"
                     name="desc"
                     class="form-control"
-                    if (role.description)
-                        value=role.description
+                    if (roleFromDB.description)
+                        value=roleFromDB.description
                 )
 
             div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel
+
                 button(
                     type="submit"
                     class="btn btn-primary"

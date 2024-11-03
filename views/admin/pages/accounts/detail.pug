@@ -23,4 +23,4 @@ block main
         span #{account.email}
     div(class="mb-4")
         strong Phone Number: 
-        span #{account.phone} 
+        span #{account.phone ? account.phone : "Not given"} 

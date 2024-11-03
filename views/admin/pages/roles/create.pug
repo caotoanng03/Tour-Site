@@ -1,8 +1,11 @@
 extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
 
 block main 
     if (role.permissions.includes('role_create'))
         h1(class="mb-4")=pageTitle
+
+        +alert-error(5000)
 
         form(
             action=`/${prefixAdmin}/roles/create`
@@ -28,6 +31,12 @@ block main
                 )
 
             div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel
+
                 button(
                     type="submit"
                     class="btn btn-primary"

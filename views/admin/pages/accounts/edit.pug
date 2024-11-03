@@ -108,6 +108,12 @@ block main
                 )
                 label(for="statusInactive" class="form-check-label") Inactive
             div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel
+
                 button(
                     type="submit"
                     class="btn btn-primary"

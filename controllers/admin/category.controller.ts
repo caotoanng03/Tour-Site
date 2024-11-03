@@ -20,7 +20,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.render("admin/pages/categories/index", {
-        pageTitle: "Admin",
+        pageTitle: "Category Management",
         categories
     });
 };

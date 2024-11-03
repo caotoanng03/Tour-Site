@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
 
 block main  
     h1(class="mb-4")=pageTitle
+
+    +alert-error(5000)
 
     form(
         action=`/${prefixAdmin}/my-account/edit?_method=PATCH`
@@ -28,7 +31,7 @@ block main
                 class="form-control"
             )
         div(class="form-group")
-            label(for="phone") Phone Number *
+            label(for="phone") Phone Number
             input(
                 type="text"
                 id="phone"
@@ -36,53 +39,54 @@ block main
                 value=(admin.phone ? admin.phone : "")
                 class="form-control"
             )
-        //- if(role.permissions.includes('roles_permissions'))
-        div(class="form-group")
-            label(for="role") Role here *
-            select(
-                id="role"
-                name="roleId"
-                class="form-control"
-            )
-                each item in roles 
-                    option(
-                        value=item.id
-                        selected=(item.id == role.id ? true : false)    
-                    )=item.title
+        if(role.permissions.includes('roles_permissions'))
+            div(class="form-group")
+                label(for="role") Role here *
+                select(
+                    id="role"
+                    name="roleId"
+                    class="form-control"
+                )
+                    each item in roles 
+                        option(
+                            value=item.id
+                            selected=(item.id == role.id ? true : false)    
+                        )=item.title
 
-        //- else
-        //-     div(class="form-group")
-        //-         label(for="role") Role *
-        //-         input(
-        //-             type="text"
-        //-             id="role"
-        //-             name="roleId"
-        //-             value=(role.title ? role.title : "")
-        //-             class="form-control"
-        //-             readonly
-        //-         )
-        //- if(role.permissions.includes('roles_permissions'))
-        div(class="form-group form-check form-check-inline")
-            input(
-                type="radio"
-                id="active"
-                name="status"
-                value="active"
-                class="form-check-input"
-                checked=(admin.status == "active" ? true : false)
-            )
-            label(for="active" class="form-check-label") Active
+        else
+            div(class="form-group")
+                label(for="role") Role *
+                input(
+                    type="text"
+                    id="role"
+                    name="roleId"
+                    value=(role.title ? role.title : "")
+                    class="form-control"
+                    readonly
+                )
 
-        div(class="form-group form-check form-check-inline")
-            input(
-                type="radio"
-                id="inactive"
-                name="status"
-                value="inactive"
-                class="form-check-input"
-                checked=(admin.status == "inactive" ? true : false)
-            )
-            label(for="inactive" class="form-check-label") Inactive
+        if(role.permissions.includes('roles_permissions'))
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    id="active"
+                    name="status"
+                    value="active"
+                    class="form-check-input"
+                    checked=(admin.status == "active" ? true : false)
+                )
+                label(for="active" class="form-check-label") Active
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    id="inactive"
+                    name="status"
+                    value="inactive"
+                    class="form-check-input"
+                    checked=(admin.status == "inactive" ? true : false)
+                )
+                label(for="inactive" class="form-check-label") Inactive
 
         div(
             class="form-group"
