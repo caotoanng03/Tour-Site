@@ -98,7 +98,7 @@ form label {
     color: var(--color-text);
 }
 
-form input {
+form input:not([type="datetime-local"]) {
     background-color: #17191d !important;
     color: white !important;
 }
@@ -245,10 +245,24 @@ form input {
     background-color: #333c50;
 }
 
-.admin-detail-avatar img {
+.detail-avatar img {
     object-fit: cover;
     width: 300px;
     height: 300px;
 }
 
 /* End Admin Avatar */
+
+.image-preview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 0px;
+}
+
+.image-preview[src=""] {
+    display: none;
+}

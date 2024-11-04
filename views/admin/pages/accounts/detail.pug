@@ -1,9 +1,11 @@
 extends ../../layouts/default.pug 
+
 block main  
     h3(class="mb-4")=pageTitle
+
     hr 
     if(account.avatar)
-        div(class="mb-4 admin-detail-avatar")
+        div(class="mb-4 detail-avatar")
             img(
                 src=account.avatar 
                 alt=account.fullName 

@@ -10,7 +10,9 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
     const user = await User.findOne({
         attributes: { exclude: ['password'] },
         where: {
-            tokenUser: req.cookies.tokenUser
+            tokenUser: req.cookies.tokenUser,
+            deleted: false,
+            status: 'active'
         }
     })
 

@@ -47,3 +47,26 @@ if (uploadImage) {
     });
 }
 // End Upload Image Preview
+
+// Get country data list from API
+const countrySelect = document.querySelector('select[name="citizen"]');
+
+if (countrySelect) {
+    const firstOption = countrySelect.querySelector('option');
+    const api = 'https://restcountries.com/v3.1/all';
+
+    fetch(api)
+        .then(res => res.json())
+        .then(countries => {
+            const html = countries.map(item => item.name.common)
+                .sort()
+                .map(country => `
+                <option value=${country}>${country}</option>
+            `).join('');
+
+            firstOption.insertAdjacentHTML("afterend", html);
+        })
+        .catch(error => console.error('Error:', error));
+
+}
+// End get country data list from API

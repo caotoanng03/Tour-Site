@@ -1,0 +1,31 @@
+extends ../../layouts/default.pug
+
+block main
+    if(role.permissions.includes('user_view'))
+
+        h3(class="mb-4")=pageTitle
+        hr 
+
+        if(user.avatar)
+            div(class="mb-4 detail-avatar")
+                img(
+                    src=user.avatar
+                    alt=user.fullName 
+                    width=300
+                    height=300
+                )
+        div(class="mb-4")
+            strong Full Name: 
+            span #{user.fullName} 
+        div(class="mb-4") 
+            strong Status: 
+            span #{user.status} 
+        div(class="mb-4")
+            strong Email: 
+            span #{user.email}
+        div(class="mb-4")
+            strong Citizen: 
+            span #{user.citizen ? user.citizen : "Not given"}
+        div(class="mb-4")
+            strong Phone Number: 
+            span #{user.phone ? user.phone : "Not given"} 

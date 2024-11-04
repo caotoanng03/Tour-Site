@@ -1,0 +1,116 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+
+block main
+    if(role.permissions.includes('user_create'))
+
+        +alert-error(5000)
+
+        h3(class="mb-4")=pageTitle
+
+        hr
+
+        form(
+            action=`/${prefixAdmin}/users/create`
+            method="POST"
+            enctype="multipart/form-data"
+        )
+
+            div(class="form-group")
+                label(for="fullName") Full Name *
+                input(
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    class="form-control"
+                    required
+                )
+
+            div(class="form-group")
+                label(for="email") Email *
+                input(
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    required
+                )
+
+            div(class="form-group")
+                label(for="password") Password *
+                input(
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    required
+                )
+
+            div(class="form-group")
+                label(for="phone") Phone Number
+                input(
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    class="form-control"
+                )
+
+            div(class="form-group")
+                label(for="citizen") Country: 
+                select(
+                    id="citizen"
+                    name="citizen"
+                    class="form-control"
+                )
+                    option(value="" disabled selected) Select your country
+
+            div(
+                class="form-group"
+                upload-image
+            ) 
+                label(for="avatar") Avatar 
+                input(
+                    type="file"
+                    name="avatar"
+                    id="avatar"
+                    class="form-control-file"
+                    upload-image-input
+                )
+                img(
+                    src=""
+                    class="image-preview"
+                    upload-image-preview
+                )
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    name="status"
+                    class="form-check-input"
+                    id="statusActive"
+                    value="active"
+                    checked
+                )
+                label(for="statusActive" class="form-check-label") Active
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    name="status"
+                    class="form-check-input"
+                    id="statusInactive"
+                    value="inactive"
+                )
+                label(for="statusInactive" class="form-check-label") Inactive
+
+            div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel
+
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Create
