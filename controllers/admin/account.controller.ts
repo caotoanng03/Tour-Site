@@ -32,7 +32,7 @@ export const index = async (req: Request, res: Response) => {
     }
 
     res.render(`admin/pages/accounts/index.pug`, {
-        pageTitle: `Admin Account Management`,
+        pageTitle: `Admin Accounts`,
         accounts
     })
 }

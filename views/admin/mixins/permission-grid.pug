@@ -1,7 +1,7 @@
 mixin permission-grid(permissionName, permissionDataName)
-    tr 
+    tr(tr-permission-title) 
         td(colspan=roles.length + 1)
-            strong #{permissionName}
+            span #{permissionName}
     tr(data-name=`${permissionDataName}_view`)
         td View
         each item in roles 

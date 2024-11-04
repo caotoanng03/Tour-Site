@@ -23,7 +23,7 @@ export const index = async (req: Request, res: Response) => {
     }) || [];
 
     res.render(`admin/pages/roles/index.pug`, {
-        pageTitle: `Role Management`,
+        pageTitle: `Roles`,
         roles
     })
 }

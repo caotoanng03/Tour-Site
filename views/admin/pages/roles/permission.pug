@@ -4,7 +4,7 @@ include ../../mixins/alert.pug
 
 block main
     if (role.permissions.includes('roles_permissions'))
-        h1(class="mb-4")=pageTitle 
+        h3(class="mb-4")=pageTitle 
 
         +alert-success(3000)
 
@@ -18,7 +18,7 @@ block main
         div(data-records=roles)
 
         table(
-            class="table table-hover table-sm"
+            class="table table-hover table-sm table-dark"
             table-permissions
         )
             thead()

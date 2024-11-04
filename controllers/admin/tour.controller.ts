@@ -32,7 +32,7 @@ export const index = async (req: Request, res: Response): Promise<void> => {
     };
 
     res.render("admin/pages/tours/index", {
-        pageTitle: "Tour Management",
+        pageTitle: "Tours",
         tours
     });
 };

@@ -2,25 +2,25 @@
     .inner-menu
         ul
             li
-                a(href=`/${prefixAdmin}/dashboard`) Dashboard
+                a(href=`/${prefixAdmin}/dashboard`) <i class="fa-solid fa-chart-line"></i> Dashboards
             if (role.permissions.includes('category_view'))
                 li
-                    a(href=`/${prefixAdmin}/categories`) Category
+                    a(href=`/${prefixAdmin}/categories`) <i class="fa-solid fa-layer-group"></i> Categories
             if (role.permissions.includes('tour_view'))
                 li
-                    a(href=`/${prefixAdmin}/tours`) Tour
+                    a(href=`/${prefixAdmin}/tours`) <i class="fa-solid fa-map-location-dot"></i> Tours
             if (role.permissions.includes('role_view'))
                 li
-                    a(href=`/${prefixAdmin}/roles`) Role
+                    a(href=`/${prefixAdmin}/roles`) <i class="fa-solid fa-users"></i> Roles
             if (role.permissions.includes('roles_permissions'))
                 li
-                    a(href=`/${prefixAdmin}/roles/permissions`) Access Control
+                    a(href=`/${prefixAdmin}/roles/permissions`) <i class="fa-solid fa-check"></i> Permissions
             if (role.permissions.includes('account_view'))
                 li
-                    a(href=`/${prefixAdmin}/accounts`) Admin account
+                    a(href=`/${prefixAdmin}/accounts`) <i class="fa-solid fa-user-shield"></i> Accounts
             if (role.permissions.includes('user_view'))
                 li
-                    a(href=`/${prefixAdmin}/users`) User account
+                    a(href=`/${prefixAdmin}/users`) <i class="fa-solid fa-user-group"></i> Customers
             if (role.permissions.includes('general_setting'))
                 li
-                    a(href=`/${prefixAdmin}/settings/general`) General setting
+                    a(href=`/${prefixAdmin}/settings/general`) <i class="fa-solid fa-gear"></i> Settings

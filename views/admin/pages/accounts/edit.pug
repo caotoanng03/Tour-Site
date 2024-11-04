@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 
 block main
     if (role.permissions.includes('account_edit'))
-        h1(class="mb-4")=pageTitle 
+        h3(class="mb-4")=pageTitle 
 
         +alert-error(5000)
 

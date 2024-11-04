@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 
 block main
 
-    h1(class="mb-4")=pageTitle
+    h3(class="mb-4") Hello, #{admin.fullName}
 
     div #{JSON.stringify(admin, null, 2)}
     div #{JSON.stringify(role, null, 2)}

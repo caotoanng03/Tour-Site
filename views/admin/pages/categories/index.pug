@@ -3,7 +3,7 @@ extends ../../layouts/default.pug
 block main
     if (role.permissions.includes('category_view'))
 
-        h1(class="mb-4") #{pageTitle}
+        h3(class="mb-4") #{pageTitle}
 
 
         .card.mb-3
@@ -17,15 +17,15 @@ block main
                             a(
                                 href=`/${prefixAdmin}/categories/create`
                                 class="btn btn-outline-success"
-                            ) + New
+                            ) + New Category
 
 
                 table(
-                    class="table table-hover table-sm mt-3"
+                    class="table table-hover table-sm mt-3 table-dark"
                 )
                     thead
                         tr
-                            th No.
+                            th #
                             th Image
                             th Title
                             th Status
