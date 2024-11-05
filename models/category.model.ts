@@ -1,5 +1,6 @@
 import sequelize from "../config/database";
 import { DataTypes, INTEGER } from "sequelize";
+import slugify from "slugify";
 
 const Category = sequelize.define("category", {
     id: {
@@ -27,8 +28,7 @@ const Category = sequelize.define("category", {
         type: INTEGER
     },
     slug: {
-        type: DataTypes.STRING(255),
-        allowNull: false
+        type: DataTypes.STRING(255)
     },
     deleted: {
         type: DataTypes.BOOLEAN,
@@ -38,5 +38,12 @@ const Category = sequelize.define("category", {
     //     type: DataTypes.DATE
     // }
 }, { tableName: "categories", timestamps: false });
+
+Category.beforeCreate((tour) => {
+    tour["slug"] = slugify(`${tour["title"]}-${Date.now()}`, {
+        lower: true,
+        strict: true
+    })
+});
 
 export default Category;

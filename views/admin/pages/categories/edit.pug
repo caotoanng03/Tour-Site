@@ -1,0 +1,105 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug 
+
+block main 
+    if (role.permissions.includes('category_edit'))
+        h3()=pageTitle
+        hr
+
+        +alert-error(5000)
+
+        form(
+            action=`/${prefixAdmin}/categories/edit/${category.id}?_method=PATCH`
+            method="POST"
+            enctype="multipart/form-data"
+        )
+            div(class="form-group")
+                label(for="title") Category title *
+                input(
+                    id="title"
+                    name="title"
+                    type="text"
+                    class="form-control"
+                    value=category.title
+                    required
+                )
+
+            div(
+                class="form-group"
+                upload-image
+            )
+                label(for="image") Thumbnail 
+                input(
+                    type="file"
+                    id="image"
+                    name="image"
+                    class="form-control-file"
+                    upload-image-input
+                )
+                img(
+                    src=category.image
+                    class="image-preview"
+                    upload-image-preview
+                )
+
+            div(class="form-group")
+                label(for="description") Description 
+                textarea(
+                    id="description"
+                    name="description"
+                    class="form-control"
+                    rows=10
+                )=category.description
+
+            div(class="form-group")
+                label(for="position") Position 
+                input(
+                    type="number"
+                    class="form-control"
+                    id="position"
+                    name="position"
+                    placeholder="Auto increment"
+                    min="1"
+                    value=category.position
+                )
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    id="statusActive"
+                    name="status"
+                    class="form-control-input"
+                    value="active"
+                    checked=(category.status === "active" ? true : false)
+                )
+                label(
+                    for="statusActive"
+                    class="form-check-label"
+                ) Active
+
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    id="statusInactive"
+                    name="status"
+                    class="form-control-input"
+                    value="inactive"
+                    checked=(category.status === "inactive" ? true : false)
+                )
+                label(
+                    for="statusInactive"
+                    class="form-check-label"
+                ) Inactive
+
+            div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel 
+
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Apply
+

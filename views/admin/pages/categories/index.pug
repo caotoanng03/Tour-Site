@@ -1,10 +1,14 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block main
     if (role.permissions.includes('category_view'))
 
         h3(class="mb-4") #{pageTitle}
 
+        +alert-success(5000)
+
+        hr
 
         .card.mb-3
             //- .card-header Category List
@@ -38,10 +42,9 @@ block main
                                 td #{index+1}
                                 td
                                     img(
+                                        class="image-index"
                                         src=item.image
                                         alt=item.title
-                                        width="100px"
-                                        height="auto"
                                     )
                                 td #{item.title}
                                 td
@@ -72,3 +75,10 @@ block main
                                             button-delete
                                             data-id=item.id
                                         ) Delete
+
+            form(
+                id="form-delete-item"
+                method="POST"
+                action=""
+                data-path=`/${prefixAdmin}/categories/delete`
+            )

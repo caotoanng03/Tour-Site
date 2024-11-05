@@ -1,0 +1,22 @@
+extends ../../layouts/default.pug 
+
+
+block main 
+    h3(class="mb-4")=pageTitle
+
+    hr 
+    if(category.image)
+        div(class="mb-4 detail-avatar")
+            img(
+                src=category.image 
+                alt=category.title 
+            )
+    div(class="mb-4")
+        strong Category title: 
+        span #{category.title} 
+    div(class="mb-4")
+        strong Description: 
+        span #{category.description ? category.description : "Not given"} 
+    div(class="mb-4") 
+        strong Status: 
+        span #{category.status}
