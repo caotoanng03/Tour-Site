@@ -39,9 +39,6 @@ const Tour = sequelize.define("tour", {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    rating: {
-        type: DataTypes.DECIMAL(3, 2)
-    },
     tourTag: {
         type: DataTypes.STRING(50)
     },

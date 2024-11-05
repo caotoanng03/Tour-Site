@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug 
+include ../../mixins/moment.pug
+
+block main  
+
+    if (role.permissions.includes('tour_view'))
+
+        h3(class="mb-4")=pageTitle
+
+        hr
+
+        if(tour.image)
+            div(class="mb-4 detail-avatar")
+                img(
+                    src=tour.image 
+                    alt=tour.fullName 
+                )
+        div(class="mb-4")
+            strong Tour code: 
+            span #{tour.code} 
+        div(class="mb-4")
+            strong Tour price: 
+            span #{tour.price} 
+        div(class="mb-4")
+            strong Tour discount(%): 
+            span #{tour.discount} 
+        div(class="mb-4")
+            strong Tour title: 
+            span #{tour.title} 
+        if(tour.categoryTitle)
+            div(class="mb-4")
+                strong Category: 
+                span #{tour.categoryTitle} 
+        div(class="mb-4")
+            strong Departure date: 
+            +formatDateTime(tour.timeStart)
+        div(class="mb-4") 
+            strong Description: 
+            span !{tour.description ? tour.description : "Not given"}
+        div(class="mb-4")
+            strong Information: 
+            span !{tour.information ? tour.information : "Not given"}
+        div(class="mb-4")
+            strong Schedule: 
+            span !{tour.schedule ? tour.schedule : "Not given"}

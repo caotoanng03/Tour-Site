@@ -465,3 +465,13 @@ main {
 }
 
 /* End Cart */
+
+/* Form Create Tour  */
+form .btn-check {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: red;
+}
+
+/* End Form Create Tour  */

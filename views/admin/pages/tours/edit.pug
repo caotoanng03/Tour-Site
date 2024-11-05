@@ -1,11 +1,15 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block main
-    if (role.permissions.includes('tour_create'))
+    if (role.permissions.includes('tour_edit'))
+
         h3(class="mb-4") #{pageTitle}
 
+        +alert-error(5000)
+
         form(
-            action=`/${prefixAdmin}/tours/create`
+            action=`/${prefixAdmin}/tours/edit/${tour.id}?_method=PATCH`
             method="POST"
             enctype="multipart/form-data"
         )
@@ -16,6 +20,7 @@ block main
                     class="form-control"
                     id="title"
                     name="title"
+                    value=tour.title
                     required
                 )
             div(class="form-group")
@@ -28,7 +33,10 @@ block main
                 )
                     option(value="" disabled selected) -- Choose Category --
                     each item in categories
-                        option(value=item.id) #{item.title}
+                        option(
+                            value=item.id
+                            selected=(item.id === tour.categoryId ? true : false)
+                        ) #{item.title}
 
             div(class="form-group")
                 label(for="images") Choose multiple images
@@ -48,7 +56,7 @@ block main
                     class="form-control"
                     id="price"
                     name="price"
-                    value="0"
+                    value=tour.price
                     min="0"
                 )
 
@@ -59,7 +67,7 @@ block main
                     class="form-control"
                     id="stock"
                     name="stock"
-                    value="0"
+                    value=tour.stock
                     min="0"
                 )
 
@@ -71,7 +79,7 @@ block main
                     id="discount"
                     step="0.001"
                     name="discount"
-                    value="0"
+                    value=(tour.discount ? tour.discount : 0)
                     min="0"
                 )
 
@@ -82,7 +90,9 @@ block main
                     class="form-control"
                     id="tourTag"
                     name="tourTag"
+                    value=(tour.tourTag ? tour.tourTag : "")
                 )
+
             div(class="form-group")
                 label(for="timeStart") Departure
                 input(
@@ -90,9 +100,10 @@ block main
                     class="form-control"
                     id="timeStart"
                     name="timeStart"
-                    value="0"
+                    value=tour.timeStart
                     min="0"
                 )
+
             div(class="form-group")
                 label(for="position") Position
                 input(
@@ -100,6 +111,7 @@ block main
                     class="form-control"
                     id="position"
                     name="position"
+                    value=tour.position
                     placeholder="Auto-increment..."
                     min="1"
                 )
@@ -111,7 +123,7 @@ block main
                     id="description"
                     name="description"
                     textarea-mce
-                )
+                )=tour.description
 
             div(class="form-group")
                 label(for="information") Tour Information
@@ -120,7 +132,7 @@ block main
                     id="information"
                     name="information"
                     textarea-mce
-                )
+                )=tour.information
 
             div(class="form-group")
                 label(for="schedule") Tour Schedule
@@ -129,15 +141,15 @@ block main
                     id="schedule"
                     name="schedule"
                     textarea-mce
-                )
+                )=tour.schedule
 
-            div(class="")
+            div
                 input(
                     type="checkbox"
                     class="mr-1"
                     id="hasPickup"
                     name="hasPickup"
-                    value=1
+                    checked=(tour.hasPickup ? true : false)
                     autocomplete="off"
                 )
                 label(for="hasPickup") Has pickup? 
@@ -149,7 +161,7 @@ block main
                     id="statusActive"
                     name="status"
                     value="active"
-                    checked
+                    checked=(tour.status == "active" ? true : false)
                 )
                 label(for="statusActive" class="form-check-label") Active
             div(class="form-group form-check form-check-inline")
@@ -159,6 +171,7 @@ block main
                     id="statusInActive"
                     name="status"
                     value="inactive"
+                    checked=(tour.status == "inactive" ? true : false)
                 )
                 label(for="statusInActive" class="form-check-label") Inactive
             div(class="form-group")
@@ -171,4 +184,4 @@ block main
                 button(
                     type="submit"
                     class="btn btn-primary"
-                ) Create
+                ) Apply

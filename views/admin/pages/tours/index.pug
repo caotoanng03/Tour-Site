@@ -1,9 +1,12 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block main
     if (role.permissions.includes('tour_view'))
 
         h3(class="mb-4") #{pageTitle}
+
+        +alert-success(3000)
 
         .card.mb-3
             .card-body
@@ -77,3 +80,10 @@ block main
                                             button-delete
                                             data-id=item.id
                                         ) Delete
+
+            form(
+                id="form-delete-item"
+                method="POST"
+                action=""
+                data-path=`/${prefixAdmin}/accounts/delete`
+            )
