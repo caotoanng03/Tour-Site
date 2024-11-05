@@ -10,7 +10,7 @@ export const login = async (req: Request, res: Response) => {
 
     if (!token) {
         res.render(`admin/pages/auth/login.pug`, {
-            pageTitle: 'Admin Login'
+            pageTitle: 'Admin'
         });
         return;
     }
@@ -26,7 +26,7 @@ export const login = async (req: Request, res: Response) => {
 
     if (!account) {
         res.render(`admin/pages/auth/login.pug`, {
-            pageTitle: 'Admin Login'
+            pageTitle: 'Admin'
         })
         return;
     }
