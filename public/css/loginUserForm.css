@@ -21,7 +21,7 @@
 .form-box h1 {
     font-size: 1.8rem;
     margin-bottom: 4.5rem;
-    color: #3c00a0;
+    color: #8f03b9;
     position: relative;
 }
 
@@ -30,7 +30,7 @@
     width: 2rem;
     height: 4px;
     border-radius: 3px;
-    background: #3c00a0;
+    background: #8f03b9;
     position: absolute;
     bottom: -12px;
     left: 50%;
@@ -80,7 +80,7 @@
 }
 
 .form-box .input-group p>a:hover {
-    color: #a37fde;
+    color: #8f03b9;
 }
 
 .form-box .btn-field {
@@ -91,7 +91,7 @@
 
 .form-box .btn-field button {
     flex-basis: 48%;
-    background: #3c00a0;
+    background: #8f03b9;
     color: #fff;
     height: 40px;
     border-radius: 20px;

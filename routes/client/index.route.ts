@@ -7,10 +7,12 @@ import { userRoutes } from "./user.route";
 import { userProfileRoutes } from "./user-profile.route";
 import * as userMiddleware from "../../middlewares/client/user.middleware";
 import * as authMiddeware from "../../middlewares/client/auth.middleware";
+import * as settingMiddleware from "../../middlewares/client/setting.middleware";
 import { homeRoutes } from "./home.route";
 
 const clientRoutes = (app: Express): void => {
     app.use(userMiddleware.userInfo)
+    app.use(settingMiddleware.settingGeneral)
 
     app.use(`/`, homeRoutes)
 

@@ -1,2 +1,34 @@
-footer.footer 
-    | Copyright © 2024 Toan. All rights reserved.
+footer.footer
+    .container
+        .row
+            .footer-col
+                h4 Contact
+                ul
+                    li
+                        span Address: #{settingGeneral.address}
+                    li
+                        span Tel: #{settingGeneral.phone}
+                    li
+                        span WhatsApp: #{settingGeneral.whatsapp}
+                    li
+                        a(href="mailto:" + settingGeneral.email) Email: #{settingGeneral.email}
+            .footer-col
+                h4 Follow Us
+                .social-links
+                    a(href=settingGeneral.facebook)
+                        i.fab.fa-facebook-f
+                    a(href=settingGeneral.twitter)
+                        i.fa-brands.fa-square-x-twitter
+                    a(href=settingGeneral.instagram)
+                        i.fab.fa-instagram
+                    a(href=settingGeneral.linkedin)
+                        i.fab.fa-linkedin-in
+                br   
+                ul
+                    li 
+                        span #{settingGeneral.copyright}
+
+            .footer-col
+                h4 !{settingGeneral.map}
+
+
