@@ -47,7 +47,7 @@ if (formBox) {
             if (!input) {
                 fullNameField.insertAdjacentHTML('beforeend', fullNameInput);
             }
-            fullNameField.style.maxHeight = "60px";
+            fullNameField.style.maxHeight = "3rem";
             title.textContent = "Register";
             registerBtn.classList.remove("disabled");
             loginBtn.classList.add("disabled");

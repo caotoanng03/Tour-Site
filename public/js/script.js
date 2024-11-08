@@ -37,6 +37,45 @@ const showAlertAddToCartSuccess = () => {
 }
 // End Alert Add Cart Successfully
 
+// Highlight selected navbar item
+const navItems = document.querySelectorAll('.nav-item');
+
+if (navItems.length > 0) {
+
+    const setActiveClass = (selectedItem) => {
+        navItems.forEach(item => item.classList.remove('active'));
+        selectedItem.classList.add('active');
+        localStorage.setItem('activeNavItem', selectedItem.getAttribute('href'));
+    }
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            setActiveClass(e.target);
+        });
+    });
+
+    // handle cart item cause <a> of cart include <i>
+    const cartLink = document.querySelector('.nav-item[href="/cart"]');
+    cartLink.addEventListener('click', (event) => {
+        setActiveClass(cartLink)
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const activeNavItem = localStorage.getItem('activeNavItem');
+
+        if (activeNavItem) {
+            const item = document.querySelector(`li .nav-item[href="${activeNavItem}"]`);
+
+            if (item) {
+                setActiveClass(item);
+            }
+        }
+    });
+
+}
+
+// End highlight selected navbar item
+
 // Display minicart icon on header
 const showMiniCart = () => {
     const miniCart = document.querySelector("[mini-cart]");

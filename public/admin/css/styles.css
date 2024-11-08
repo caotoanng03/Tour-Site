@@ -112,21 +112,32 @@ form input:not([type="datetime-local"]) {
     margin: 0;
 }
 
-.sider .inner-menu ul li:last-child {
-    position: relative;
-    bottom: -25rem;
-}
-
 .sider .inner-menu ul li:hover {
     background-color: #515151;
     backdrop-filter: blur(10px);
 }
 
+.sider .inner-menu ul li.selected {
+    background-color: #364759;
+    color: white;
+}
+
 .sider .inner-menu ul li a {
     font-size: 1rem;
     color: var(--color-sider-text);
-    display: block;
-    padding: 10px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1.5rem 10px;
+}
+
+.sider .inner-menu ul li a:active {
+    color: red;
+}
+
+.sider .inner-menu ul li a i {
+    width: 20px;
+    margin-right: 10px;
 }
 
 .sider .inner-menu ul li a:hover {

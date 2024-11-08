@@ -8,13 +8,20 @@ header.header
                     a(href="/") #{settingGeneral.websiteName}
             .col-9 
                 .inner-menu 
-                    ul
+                    ul(class="navbar")
                         li
-                            a(href="#") Home 
+                            a(
+                                class="nav-item"
+                                href="#") Home 
                         li
-                            a(href="/categories") Category
+                            a(
+                                class="nav-item"
+                                href="/categories") Category
                         li
-                            a(href="/cart")
+                            a( 
+                                class="nav-item"
+                                href="/cart"
+                            )
                                 <i class="fa-solid fa-cart-shopping"></i>
                                     | (<span mini-cart >0</span>)
 

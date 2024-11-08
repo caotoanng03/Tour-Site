@@ -6,7 +6,6 @@ const renderTourListInCart = () => {
 
     if (cart.length <= 0) {
         const cartContainer = document.querySelector('.cart-container');
-        console.log(cartContainer)
         const html = `<div class="alert alert-error"> Your cart is empty. Please add some tours!</div>`;
         cartContainer.innerHTML = html;
     }

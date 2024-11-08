@@ -1,3 +1,23 @@
+// Highlight selected menu item
+function selectMenuItem(event) {
+    const selectedMenuItem = event.currentTarget.textContent;
+    localStorage.setItem('selectedMenuItem', selectedMenuItem);
+}
+
+function highlightSelectedMenuItem() {
+    const selectedMenuItem = localStorage.getItem('selectedMenuItem');
+
+    if (selectedMenuItem) {
+        document.querySelectorAll('.sider .inner-menu ul li').forEach(item => {
+            if (item.textContent === selectedMenuItem) {
+                item.classList.add('selected');
+            }
+        });
+    }
+}
+document.addEventListener('DOMContentLoaded', highlightSelectedMenuItem);
+// End highlight selected menu item
+
 // Delete Item
 const deleteButtons = document.querySelectorAll("[button-delete]");
 if (deleteButtons.length > 0) {
