@@ -4,8 +4,9 @@ include ../../mixins/alert.pug
 block main
     if (role.permissions.includes('account_view'))
         h3(class="mb-4")=pageTitle
+        hr
 
-        +alert-success(3000)
+        +alert-success(5000)
 
         .card.mb-3 
             //- .card-header Here is the list of admin accounts 

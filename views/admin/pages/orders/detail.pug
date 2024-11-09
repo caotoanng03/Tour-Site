@@ -1,0 +1,32 @@
+extends ../../layouts/default.pug
+
+block main
+    if(role.permissions.includes('order_view'))
+
+        h3(class="mb-4")=pageTitle
+        hr 
+
+        table(class="table table-dark table-hover table-striped-columns")
+            tbody
+                tr
+                    th(scope="row") Id
+                    td=order.id
+                tr
+                    th(scope="row") Detail customer
+                    td 
+                        a(href=`/${prefixAdmin}/users/detail/${order.userId}`) click here
+                tr
+                    th(scope="row") Booking full name
+                    td=order.fullName
+                tr
+                    th(scope="row") Booking email
+                    td=order.email
+                tr
+                    th(scope="row") Booking phone number
+                    td=order.phone
+                tr
+                    th(scope="row") Booking status
+                    td=order.status
+                tr
+                    th(scope="row") Cusomter's note
+                    td=order.note

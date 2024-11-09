@@ -1,0 +1,88 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    if(role.permissions.includes('order_view'))
+
+        h3(class="mb-4")=pageTitle
+        hr
+
+        +alert-success(5000)
+
+        .card.mb-3 
+            .card-body
+                .row 
+                    .col-8 
+                    .col-4.text-right
+                        if(role.permissions.includes('order_create'))
+                            a(
+                                href=`/${prefixAdmin}/orders/create`
+                                class="btn btn-outline-success"
+                            ) + New order
+                table(
+                    class="table table-hover table-sm mt-3 table-dark"
+                )
+                    thead
+                        tr
+                            th #
+                            th Customer
+                            th Order Name 
+                            th Order Email 
+                            th Order Phone 
+                            th Order Status 
+                            th Action 
+                    tbody
+                        each item, index in orders
+                            tr 
+                                td #{index + 1}
+                                td 
+                                    a(href=`/${prefixAdmin}/users/detail/${item.userId}`) Detail Customer
+                                td #{item.fullName}
+                                td #{item.email}
+                                td #{item.phone}
+                                td 
+                                    case item.status
+                                        when "initial"
+                                            a(
+                                                href="javascript:;"
+                                                class="badge badge-secondary"
+                                            ) initial
+                                        when "processing"
+                                            a(
+                                                href="javascript:;"
+                                                class="badge badge-info"
+                                            ) processing
+                                        when "success"
+                                            a(
+                                                href="javascript:;"
+                                                class="badge badge-success"
+                                            ) success
+                                        default 
+                                            a(
+                                                href="javascript:;"
+                                                class="badge badge-danger"
+                                            ) failed
+                                td
+                                    a(
+                                        class="btn btn-info btn-sm"
+                                        href=`/${prefixAdmin}/orders/detail/${item.id}`
+                                    ) Detail
+
+                                    if(role.permissions.includes('order_edit'))
+                                        a(
+                                            class="btn btn-warning btn-sm ml-1"
+                                            href=`/${prefixAdmin}/orders/edit/${item.id}`
+                                        ) Edit 
+
+                                    if(role.permissions.includes('order_delete'))
+                                        Button(
+                                            class="btn btn-danger btn-sm ml-1"
+                                            data-id=item.id
+                                            button-delete
+                                        ) Delete
+                form(
+                    id="form-delete-item"
+                    action=""
+                    data-path=`/${prefixAdmin}/orders/delete`
+                    method="POST"
+                )

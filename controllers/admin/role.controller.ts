@@ -61,7 +61,9 @@ export const createPost = async (req: Request, res: Response) => {
         roleObject['description'] = req.body.desc;
     }
 
-    const newRole = await Role.create(roleObject);
+    await Role.create(roleObject);
+
+    req['flash']('success', 'Successfully created');
     res.redirect(`/${systemConfig.prefixAdmin}/roles`);
 }
 
@@ -77,22 +79,25 @@ export const edit = async (req: Request, res: Response) => {
 
     const roleId = `${req.params.id}`;
 
-    try {
-        const roleFromDB = await Role.findOne({
-            where: {
-                id: roleId,
-                deleted: false
-            }
-        })
+    const roleFromDB = await Role.findOne({
+        where: {
+            id: roleId,
+            deleted: false
+        }
+    })
 
-        res.render(`admin/pages/roles/edit.pug`, {
-            pageTitle: 'Edit Role',
-            roleFromDB
+    if (!roleFromDB) {
+        res.render(`errors/error.pug`, {
+            code: 400,
+            title: 'bad request'
         })
-    } catch (err) {
-        //  TODO: redirect to 404 page
-        res.redirect(`/${systemConfig.prefixAdmin}/roles`)
+        return;
     }
+
+    res.render(`admin/pages/roles/edit.pug`, {
+        pageTitle: 'Edit Role',
+        roleFromDB
+    })
 
 }
 
@@ -108,30 +113,26 @@ export const editPatch = async (req: Request, res: Response) => {
 
     const roleId = `${req.params.id}`;
 
-    try {
-        let desc = req.body.desc;
+    let desc = req.body.desc;
 
-        if (desc.trim() == '') {
-            desc = null;
-        }
-
-        const roleObject = {
-            title: req.body.title,
-            description: desc
-        }
-
-        await Role.update(roleObject, {
-            where: {
-                id: roleId,
-                deleted: false
-            }
-        })
-
-        res.redirect(`/${systemConfig.prefixAdmin}/roles`);
-    } catch (err) {
-        //  TODO: redirect to 404 page
-        res.redirect(`/${systemConfig.prefixAdmin}/roles`)
+    if (desc.trim() == '') {
+        desc = null;
     }
+
+    const roleObject = {
+        title: req.body.title,
+        description: desc
+    }
+
+    await Role.update(roleObject, {
+        where: {
+            id: roleId,
+            deleted: false
+        }
+    })
+
+    req['flash']('success', `The role ${roleId} was updated`);
+    res.redirect(`/${systemConfig.prefixAdmin}/roles`);
 }
 
 // [GET] /admin/roles/detail/:id
@@ -146,22 +147,26 @@ export const detail = async (req: Request, res: Response) => {
 
     const roleId: string = `${req.params.id}`;
 
-    try {
-        const roleFromDB = await Role.findOne({
-            where: {
-                id: roleId,
-                deleted: false
-            }
-        })
+    const roleFromDB = await Role.findOne({
+        where: {
+            id: roleId,
+            deleted: false
+        }
+    })
 
-        res.render(`admin/pages/roles/detail.pug`, {
-            pageTitle: 'Role Detail',
-            roleFromDB
+    if (!roleFromDB) {
+        res.render(`errors/error.pug`, {
+            code: 400,
+            title: 'bad request'
         })
-    } catch (error) {
-        //  TODO: redirect to 404 page
-        res.redirect(`/${systemConfig.prefixAdmin}/roles`)
+        return;
     }
+
+    res.render(`admin/pages/roles/detail.pug`, {
+        pageTitle: 'Role Detail',
+        roleFromDB
+    })
+
 }
 
 // [DELETE] /admin/roles/delete/:id
@@ -176,18 +181,28 @@ export const deleteRole = async (req: Request, res: Response) => {
 
     const roleId: string = `${req.params.id}`;
 
-    try {
-        await Role.update(
-            { deleted: true },
-            { where: { id: roleId } }
-        );
+    const roleFromDB = await Role.findOne({
+        where: {
+            deleted: false,
+            id: roleId
+        }
+    });
 
-        res.redirect(`back`)
-
-    } catch (error) {
-        // TODO: redirect to 404 page
-        res.redirect(`/${systemConfig.prefixAdmin}/roles`)
+    if (!roleFromDB) {
+        res.render(`errors/error.pug`, {
+            code: 400,
+            title: 'bad request'
+        })
+        return;
     }
+
+    await Role.update(
+        { deleted: true },
+        { where: { id: roleId } }
+    );
+
+    req['flash']('success', 'Successfully deleted');
+    res.redirect(`back`);
 }
 
 // [GET] /admin/roles/permissions

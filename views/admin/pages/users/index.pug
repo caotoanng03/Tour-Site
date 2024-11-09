@@ -1,12 +1,12 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+
 block main
     if(role.permissions.includes('user_view'))
+        h3(class="mb-4") #{pageTitle}
+        hr
 
         +alert-success(5000)
-        +alert-error(5000)
-
-        h3(class="mb-4")=pageTitle 
 
         .card.mb-3 
             //- .card-header Here is the list of user accounts 

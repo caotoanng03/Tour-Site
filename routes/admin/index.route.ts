@@ -13,6 +13,7 @@ import { settingsRoutes } from "./setting.route";
 
 import * as authMiddleware from "../../middlewares/admin/auth.middleware";
 import * as authController from "../../controllers/admin/auth.controller";
+import { orderRoutes } from "./order.route";
 
 const adminRoutes = (app: Express): void => {
     const PATH_ADMIN = `/${systemConfig.prefixAdmin}`;
@@ -30,6 +31,8 @@ const adminRoutes = (app: Express): void => {
     app.use(`${PATH_ADMIN}/categories`, authMiddleware.requireAuth, categoryRoutes);
 
     app.use(`${PATH_ADMIN}/tours`, authMiddleware.requireAuth, tourRoutes);
+
+    app.use(`${PATH_ADMIN}/orders`, authMiddleware.requireAuth, orderRoutes);
 
     app.use(`${PATH_ADMIN}/roles`, authMiddleware.requireAuth, roleRoutes);
 

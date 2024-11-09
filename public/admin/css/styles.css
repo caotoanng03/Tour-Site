@@ -9,7 +9,7 @@
     --color-header2: #dbdde1;
     --color-text: #adafb3;
     --color-border: #9e9e9e;
-    --color-logo: #dcdee2;
+    --color-logo: #007BFF;
     --color-table-theah: #dbdce0;
     --color-table-permission-title: #23252b;
 }
@@ -157,7 +157,7 @@ form input:not([type="datetime-local"]) {
     padding: 0.8rem 1rem;
     position: fixed;
     border-radius: 7px;
-    top: 65px;
+    top: 4.5rem;
     right: 1rem;
     z-index: 9999;
     transform: translateX(100%);
