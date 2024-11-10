@@ -13,7 +13,7 @@
                     a(href=`/${prefixAdmin}/tours`) 
                         <i class="fa-solid fa-map-location-dot"></i> Tours
             if (role.permissions.includes('order_view'))
-                li(onclick="selectMenuItem(event")
+                li(onclick="selectMenuItem(event)")
                     a(href=`/${prefixAdmin}/orders`) 
                         <i class="fa-solid fa-clipboard-check"></i> Orders
             if (role.permissions.includes('role_view'))

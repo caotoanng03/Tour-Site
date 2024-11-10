@@ -1,21 +1,26 @@
 // Highlight selected menu item
-function selectMenuItem(event) {
-    const selectedMenuItem = event.currentTarget.textContent;
-    localStorage.setItem('selectedMenuItem', selectedMenuItem);
+const siderItems = document.querySelectorAll('.sider .inner-menu ul li');
+if (siderItems) {
+    siderItems.forEach(item => {
+        item.addEventListener('click', (event) => {
+            const title = event.target.textContent;
+            localStorage.setItem('selectedItemSider', title);
+        })
+    })
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const titleItemSider = localStorage.getItem('selectedItemSider');
+
+        if (titleItemSider) {
+            document.querySelectorAll('.sider .inner-menu ul li').forEach(item => {
+                if (item.textContent === titleItemSider) {
+                    item.classList.add('selected');
+                }
+            });
+        }
+    });
 }
 
-function highlightSelectedMenuItem() {
-    const selectedMenuItem = localStorage.getItem('selectedMenuItem');
-
-    if (selectedMenuItem) {
-        document.querySelectorAll('.sider .inner-menu ul li').forEach(item => {
-            if (item.textContent === selectedMenuItem) {
-                item.classList.add('selected');
-            }
-        });
-    }
-}
-document.addEventListener('DOMContentLoaded', highlightSelectedMenuItem);
 // End highlight selected menu item
 
 // Delete Item
