@@ -1,0 +1,108 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug 
+include ../../mixins/option.pug
+
+block main
+    if(role.permissions.includes('order_create'))
+        h3(class="mb-5")=pageTitle 
+
+        +alert-error(5000)
+
+        form(
+            method="POST"
+            action=`/${prefixAdmin}/orders/create`
+        )
+            div(class="form-group")
+                label(for="user-search") Choose user
+                input(
+                    id="userSearch"
+                    class="form-control"
+                    type="text"
+                    name="emailCustomer"
+                    placeholder="Enter user name or email"
+                )
+                input(
+                    id="userIdInput"
+                    type="hidden"
+                    name="userId"
+                )
+                ul(id="userResults")
+
+            div(class="form-group")
+                label(for="tour-search") Choose tour
+                input(
+                    id="tourSearch"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search for a tour"
+                )
+                ul(id="tourResults")
+                div(id="selectedTours")
+
+            div(class="form-group")
+                label(for="fullName") Full Name *
+                input(
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    class="form-control"
+                    required
+                )
+
+            div(class="form-group")
+                label(for="email") Email *
+                input(
+                    id="email"
+                    name="email"
+                    type="text"
+                    class="form-control"
+                    required
+                )
+
+            div(class="form-group")
+                label(for="phone") Phone Number: *
+                input(
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    class="form-control"
+                    required
+                )
+
+            div(class="form-group")
+                label(for="note") Note 
+                input(
+                    id="note"
+                    name="note"
+                    type="note"
+                    class="form-control"
+                )
+
+            div(class="form-group")
+                label(for="status") Order Status:
+                select(
+                    id="status"
+                    class="form-control-inline"
+                    name="status"
+                    required
+                )
+                    option(value="initial" checked) Initial(Default)
+                    +optionNonValue("processing", "Processing")
+                    +optionNonValue("success", "Success")
+                    +optionNonValue("failed", "Failed")
+
+            div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel 
+
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Create
+
+    script(src="/admin/js/search.js")   
+
+

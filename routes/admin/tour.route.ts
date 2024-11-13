@@ -39,4 +39,6 @@ router.delete(`/delete/:id`, controller.deleteTour);
 
 router.get(`/detail/:id`, controller.detail);
 
+router.get(`/search/:type`, controller.search);
+
 export const tourRoutes: Router = router;

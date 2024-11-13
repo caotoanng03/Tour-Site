@@ -38,6 +38,10 @@ const OrderItem = sequelize.define("order-item", {
     timeStart: {
         type: DataTypes.DATE,
         allowNull: false,
+    },
+    deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, { tableName: "orders_item", timestamps: false });
 

@@ -3,8 +3,7 @@ include ../../mixins/alert.pug
 
 block main 
     if (role.permissions.includes('category_create'))
-        h3()=pageTitle
-        hr
+        h3(class="mb-5")=pageTitle
 
         +alert-error(5000)
 

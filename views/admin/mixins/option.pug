@@ -1,0 +1,8 @@
+mixin optionNonValue(value, title)
+    option(value=value) #{title}
+
+mixin optionWithValue(value, title)
+    option(
+        value=value
+        selected=(order.status == value ? true : false)
+    ) #{title}

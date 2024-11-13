@@ -6,7 +6,8 @@ import { systemConfig } from "../../config/system";
 import { generateTourCode } from "../../helpers/generate";
 import { normalizeValue } from "../../helpers/normalizeValue";
 import sequelize from "../../config/database";
-import { Sequelize, where } from "sequelize";
+import { Op, Sequelize, where } from "sequelize";
+import * as textUtils from "../../helpers/textUtils";
 
 // [GET] /admin/tours
 export const index = async (req: Request, res: Response): Promise<void> => {
@@ -293,4 +294,56 @@ export const detail = async (req: Request, res: Response): Promise<void> => {
         pageTitle: `Detail Tour ID: ${tourId}`,
         tour
     });
+}
+
+// [GET] /admin/tours/search/:type
+export const search = async (req: Request, res: Response): Promise<void> => {
+    let searchedTours = [];
+
+    const keyword = req.query.keyword;
+    const type = req.params.type;
+
+    if (keyword) {
+        const keywordRegex = textUtils.removeDiacritics(keyword);
+        const slug = textUtils.convertToSlug(keyword);
+        console.log(slug)
+
+        const tours = await Tour.findAll({
+            where: {
+                [Op.or]: [
+                    { title: { [Op.like]: `%${keywordRegex}%` } },
+                    { slug: { [Op.like]: `%${slug}%` } }
+                ],
+                deleted: false
+            },
+            attributes: ['id', 'title', 'price', 'discount']
+        });
+
+        for (const tour of tours) {
+            const discounted_price = tour.dataValues.price * (1 - tour.dataValues.discount / 100);
+
+            searchedTours.push({
+                id: tour.dataValues.id,
+                title: tour.dataValues.title,
+                price: tour.dataValues.price,
+                discount: tour.dataValues.discount,
+                discounted_price: discounted_price
+            })
+        }
+
+    }
+
+    switch (type) {
+        case "result":
+            break;
+        case "suggest":
+            res.json({
+                code: 200,
+                message: "Success!",
+                tours: searchedTours
+            });
+            break;
+        default:
+            break;
+    }
 }

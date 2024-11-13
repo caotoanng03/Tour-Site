@@ -34,5 +34,7 @@ router.delete(`/delete/:id`, controller.deleteUser);
 
 router.get(`/detail/:id`, controller.detail);
 
+router.get(`/search/:type`, controller.search);
+
 
 export const userRoutes: Router = router;

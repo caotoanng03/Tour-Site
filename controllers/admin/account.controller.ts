@@ -174,7 +174,7 @@ export const editPatch = async (req: Request, res: Response) => {
 
 }
 
-// [DELETE] /admin/accounts/edit/:id
+// [DELETE] /admin/accounts/delete/:id
 export const deleteAccount = async (req: Request, res: Response) => {
     if (!res.locals.role.permissions.includes('account_delete')) {
         res.render(`errors/error.pug`, {

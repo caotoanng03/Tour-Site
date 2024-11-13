@@ -1,0 +1,136 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug 
+include ../../mixins/option.pug
+
+block main
+    if(role.permissions.includes('order_edit'))
+        h3(class="mb-5")=pageTitle 
+
+        +alert-error(5000)
+
+        form(
+            method="POST"
+            action=`/${prefixAdmin}/orders/edit/${order.id}?_method=PATCH`
+        )
+            div(class="form-group")
+                label(for="user-search") Choose user
+                input(
+                    id="userSearch"
+                    class="form-control"
+                    type="text"
+                    name="emailCustomer"
+                    value=order.userInfo.email
+                    readonly
+                    style="color: grey !important;"
+                    placeholder="Enter user name or email"
+                )
+                input(
+                    id="userIdInput"
+                    type="hidden"
+                    name="userId"
+                )
+                ul(id="userResults")
+
+            div(class="form-group")
+                label(for="tour-search") Choose tour
+                input(
+                    id="tourSearch"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search for a tour"
+                )
+                ul(id="tourResults")
+                div(id="selectedTours")
+                    each item in orderItems
+                        div(
+                            class="selected-tour"
+                            data-tour-id=item.tourId
+                        )
+                            span #{item.tourInfo.title}
+                            input(
+                                class="tour-quantity"
+                                type='number' 
+                                min='1' 
+                                max=item.tourInfo.stock 
+                                value=item.quantity 
+                                readonly
+                                style="color: grey !important;"
+                                data-tour-id=item.tourId
+                            )
+                            button(
+                                class="remove-tour"
+                                type='button' 
+                                data-tour-id=item.tourId
+                            ) Remove
+
+            div(class="form-group")
+                label(for="fullName") Full Name *
+                input(
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    class="form-control"
+                    value=order.fullName
+                    required
+                )
+
+            div(class="form-group")
+                label(for="email") Email *
+                input(
+                    id="email"
+                    name="email"
+                    type="text"
+                    class="form-control"
+                    value=order.email
+                    required
+                )
+
+            div(class="form-group")
+                label(for="phone") Phone Number: *
+                input(
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    class="form-control"
+                    value=order.phone
+                    required
+                )
+
+            div(class="form-group")
+                label(for="note") Note 
+                input(
+                    id="note"
+                    name="note"
+                    type="note"
+                    class="form-control"
+                    value=order.note
+                )
+
+            div(class="form-group")
+                label(for="status") Order Status:
+                select(
+                    id="status"
+                    class="form-control-inline"
+                    name="status"
+                    required
+                )
+                    +optionWithValue("initial", "Initial (Default)")
+                    +optionWithValue("processing", "Processing")
+                    +optionWithValue("success", "Success")
+                    +optionWithValue("failed", "Failed")
+
+            div(class="form-group")
+                a(
+                    onclick="history.back();"
+                    class="btn btn-secondary mr-1"
+                    aria-label="Close"
+                ) Cancel 
+
+                button(
+                    type="submit"
+                    class="btn btn-warning"
+                ) Update
+
+    script(src="/admin/js/search.js")   
+
+

@@ -4,8 +4,7 @@ include ../../mixins/alert.pug
 block main
     if (role.permissions.includes('category_view'))
 
-        h3(class="mb-4") #{pageTitle}
-        hr
+        h3(class="mb-5") #{pageTitle}
 
         +alert-success(5000)
 

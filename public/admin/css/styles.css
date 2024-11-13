@@ -8,6 +8,8 @@
     --color-sider-text: #818799;
     --color-header2: #dbdde1;
     --color-text: #adafb3;
+    --color-btn-red: #dc3444;
+    --color-btn-green: #1aa942;
     --color-border: #9e9e9e;
     --color-logo: #007BFF;
     --color-table-theah: #dbdce0;
@@ -28,6 +30,10 @@ body {
 h1, h2, h3 {
     color: var(--color-header2);
     text-transform: capitalize;
+}
+
+ul {
+    list-style-type: none;
 }
 
 /* Header */
@@ -106,11 +112,6 @@ form input:not([type="datetime-local"]) {
 /* End Form */
 
 /* Sider */
-.sider .inner-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
 
 .sider .inner-menu ul li:hover {
     background-color: #515151;
@@ -237,11 +238,12 @@ form input:not([type="datetime-local"]) {
 /* Image Preview */
 .image-preview {
     width: 150px;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
     margin-top: 15px;
     border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 0px;
 }
 
 .image-preview[src=""] {
@@ -272,16 +274,85 @@ form input:not([type="datetime-local"]) {
 
 /* End Admin Avatar */
 
-.image-preview {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-top: 15px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 0px;
+/* Search user dropdown */
+#userResults:empty,
+#tourResults:empty {
+    border: none;
 }
 
-.image-preview[src=""] {
-    display: none;
+#userResults,
+#tourResults {
+    position: relative;
+    top: 5px;
+    border: 1px solid #6c7486;
+    border-radius: 0 5px;
 }
+
+#userResults li {
+    padding: 5px 10px;
+    transition: color 0.5s ease, transform 0.1s ease;
+}
+
+#userResults li:hover {
+    color: #2d5dce;
+    transform: translateX(-2px);
+}
+
+/* End search tour dropdown */
+
+/* Search tour dropdown */
+
+#tourResults li {
+    padding: 5px 10px;
+    transition: color 0.5s ease;
+}
+
+#tourResults li:hover {
+    color: #2d5dce;
+}
+
+#tourResults button {
+    margin-left: 10px;
+    border: 1px solid var(--color-btn-green);
+    background-color: transparent;
+    color: var(--color-btn-green);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+#tourResults button:hover {
+    background-color: var(--color-btn-green);
+    color: white;
+}
+
+#selectedTours span {
+    margin-left: 5px;
+    color: var(--color-btn-green);
+}
+
+#selectedTours .selected-tour {
+    margin-bottom: 10px;
+}
+
+#selectedTours input {
+    border: 1px solid #b9b9b9;
+    width: 100px;
+    margin-inline: 10px;
+    padding-left: 10px;
+    color: #98a1ab;
+}
+
+#selectedTours button {
+    border: 1px solid var(--color-btn-red);
+    padding: 0 5px;
+    background-color: transparent;
+    color: var(--color-btn-red);
+}
+
+#selectedTours button:hover {
+    background-color: var(--color-btn-red);
+    color: white;
+}
+
+/* End search tour dropdown */

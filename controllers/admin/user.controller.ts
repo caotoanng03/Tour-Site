@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { systemConfig } from "../../config/system";
 import md5 from "md5";
 import User from "../../models/user.model";
+import { removeDiacritics as removeDiacriticsHelper } from "../../helpers/textUtils";
+import { Op } from "sequelize";
 
 // [GET] /admin/users
 export const index = async (req: Request, res: Response) => {
@@ -217,4 +219,43 @@ export const detail = async (req: Request, res: Response) => {
         pageTitle: `Detail Customer ID: ${userId}`,
         user
     });
+}
+
+// [GET] /admin/users/search/:type
+export const search = async (req: Request, res: Response): Promise<void> => {
+    let searchedUsers = [];
+
+    const keyword = req.query.keyword;
+    const type = req.params.type;
+
+    if (keyword) {
+        const keywordRegex = removeDiacriticsHelper(keyword);
+
+        const users = await User.findAll({
+            where: {
+                [Op.or]: [
+                    { fullName: { [Op.like]: `%${keywordRegex}%` } },
+                    { email: { [Op.like]: `%${keywordRegex}%` } }
+                ],
+                deleted: false
+            },
+            attributes: ['id', 'fullName', 'email']
+        });
+
+        searchedUsers = users;
+    }
+
+    switch (type) {
+        case "result":
+            break;
+        case "suggest":
+            res.json({
+                code: 200,
+                message: "Success!",
+                users: searchedUsers
+            });
+            break;
+        default:
+            break;
+    }
 }

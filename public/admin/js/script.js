@@ -13,7 +13,7 @@ if (siderItems) {
 
         if (titleItemSider) {
             document.querySelectorAll('.sider .inner-menu ul li').forEach(item => {
-                if (item.textContent === titleItemSider) {
+                if (item.textContent.trim() === titleItemSider.trim()) {
                     item.classList.add('selected');
                 }
             });
