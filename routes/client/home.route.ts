@@ -3,6 +3,8 @@ const router: Router = Router();
 
 import * as controller from "../../controllers/client/home.controller";
 
-router.get(`/`, controller.welcome)
+router.get(`/welcome`, controller.welcome);
+
+router.get(`/`, controller.index);
 
 export const homeRoutes: Router = router;
