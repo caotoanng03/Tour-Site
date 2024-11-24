@@ -6,7 +6,28 @@ header.header
             .col-3 
                 .inner-logo 
                     a(href="/") #{settingGeneral.websiteName}
-            .col-9 
+
+            .col-4
+                .box-search
+                    form(
+                        action="/search/result"
+                        method="GET"
+                    )
+                        div(class="form-group d-flex mb-0")
+                            input(
+                                type="text"
+                                placeholder="Search..."
+                                class="form-control"
+                                name="keyword"
+                                required
+                                value=keyword
+                            )
+                            button(
+                                type="submit"
+                                class="btn btn-secondary"
+                            ) <i class="fa-solid fa-magnifying-glass"></i>
+
+            .col-5 
                 .inner-menu 
                     ul(class="navbar")
                         li

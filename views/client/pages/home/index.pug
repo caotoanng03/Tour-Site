@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug 
 include ../../mixins/alert.pug
 include ../../mixins/box-head.pug
+include ../../mixins/list-tour.pug
 
 block main
     +alert-error(5000)
@@ -12,17 +13,4 @@ block main
                 +box-head(pageTitle)
 
         .row(class="tour-list")
-            each tour in tours 
-                .col-3.mb-3 
-                    div(class="card")
-                        div(class="card-image")
-                            img(src=tour.image)
-                        span(class="tour-tag") #{tour.tourTag}
-                        div(class="card-body")
-                            a(href=`/tours/detail/${tour.slug}`) 
-                                h6(class="card-title") #{tour.title}
-                            div #{tour.hasPickup ? "Pickup available": ""}
-                            span.discount <i class="fa-solid fa-tag"></i> #{tour.discount ? tour.discount : "0"}%
-                            span.old-price <i class="fa-solid fa-dollar-sign"></i>#{tour.price}
-                            span.new-price <i class="fa-solid fa-dollar-sign"></i>#{tour.discounted_price}
-
+            +grid-tours(tours)

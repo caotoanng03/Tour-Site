@@ -9,6 +9,7 @@ import * as userMiddleware from "../../middlewares/client/user.middleware";
 import * as authMiddeware from "../../middlewares/client/auth.middleware";
 import * as settingMiddleware from "../../middlewares/client/setting.middleware";
 import { homeRoutes } from "./home.route";
+import { searchRoutes } from "./search.route";
 
 const clientRoutes = (app: Express): void => {
     app.use(userMiddleware.userInfo)
@@ -19,6 +20,8 @@ const clientRoutes = (app: Express): void => {
     app.use(`/tours`, tourRoutes)
 
     app.use(`/categories`, categoryRoutes)
+
+    app.use(`/search`, searchRoutes)
 
     // auth
     app.use(`/cart`, cartRoutes)

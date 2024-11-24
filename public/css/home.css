@@ -1,3 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-new-price: #ff6e5e;
+}
+
 .tour-list .card {
     overflow: hidden;
     height: 320px;
@@ -18,7 +26,7 @@
     transition: transform 0.7s ease;
     width: 100%;
     height: 100%;
-    /* object-fit: cover; */
+    object-fit: cover;
 }
 
 .tour-list .card .card-image img:hover {
@@ -35,14 +43,12 @@
 }
 
 .tour-list .card-body {
-    /* background-color: lightgrey; */
     padding: -3px;
 }
 
 .tour-list .card-body div {
     font-size: 0.8rem;
     margin-bottom: 5px;
-    ;
 }
 
 .tour-list .card-body .old-price {
@@ -57,8 +63,8 @@
 }
 
 .tour-list .card-body .new-price {
-    color: red;
-    display: block;
+    color: var(--color-new-price);
+    display: inline-block;
     font-size: 1.1rem;
     font-weight: 600;
 }
