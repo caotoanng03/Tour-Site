@@ -198,5 +198,33 @@ if (formUserProfileEdit) {
 }
 // End get country data list from API
 
+// Search
+$(document).ready(function () {
+    $('#dateRangePicker').daterangepicker({
+        locale: {
+            format: 'MMM D',
+            separator: ' - ',
+        },
+        opens: 'right',
+        autoUpdateInput: false,
+    });
+
+    $('#calendarButton').on('click', function () {
+        $('#dateRangePicker').focus();
+    });
+
+    // Update the input field when dates are selected
+    $('#dateRangePicker').on('apply.daterangepicker', function (ev, picker) {
+        $(this).val(picker.startDate.format('MMM D') + ' - ' + picker.endDate.format('MMM D'));
+    });
+
+    $('#dateRangePicker').on('cancel.daterangepicker', function () {
+        $(this).val('');
+    });
+});
+
+
+
+// End Search
 
 

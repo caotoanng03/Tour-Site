@@ -72,19 +72,27 @@ main {
 .header .box-search input:focus {
     outline: none;
     border: none;
-    box-shadow: 0 0 5px 2px var(--color-logo);
-    /* Add a subtle glow */
+    box-shadow: none;
+}
+
+.header .box-search .input-group button {
+    border: none;
+    outline: none;
+    background-color: white;
+}
+
+.header .box-search .input-group input {
+    font-weight: 600;
+    font-size: 0.8rem;
+    border: 5px solid white;
+    text-align: center;
+    align-items: center;
 }
 
 .header .box-search button {
     height: 2rem;
     border: none;
     border-radius: 0%;
-    background-color: var(--color-logo);
-}
-
-.header .box-search button:hover {
-    background-color: rgb(71, 71, 136);
 }
 
 .header .inner-menu>ul {
@@ -158,7 +166,7 @@ main {
     z-index: 10000000;
     position: absolute;
     top: 80%;
-    right: -16%;
+    right: -35%;
     width: 200px;
     padding: 10px;
     max-height: 0px;
