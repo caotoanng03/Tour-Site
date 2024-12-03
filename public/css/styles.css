@@ -75,7 +75,12 @@ main {
     box-shadow: none;
 }
 
+.header .box-search .input-group {
+    width: 30rem;
+}
+
 .header .box-search .input-group button {
+    font-size: 1.2rem;
     border: none;
     outline: none;
     background-color: white;
@@ -87,6 +92,12 @@ main {
     border: 5px solid white;
     text-align: center;
     align-items: center;
+}
+
+.header .box-search .input-group input .past-date {
+    text-decoration: line-through;
+    color: #ccc;
+    pointer-events: none;
 }
 
 .header .box-search button {
@@ -394,7 +405,7 @@ main {
 
 .box-head .inner-title {
     margin-bottom: 0;
-    font-size: 28px;
+    font-size: 2rem;
     font-weight: 600;
     color: black;
 }
@@ -440,6 +451,10 @@ main {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.col-12.heading {
+    max-height: 50px;
 }
 
 .tour-detail .inner-title {

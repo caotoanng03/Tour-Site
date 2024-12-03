@@ -1,0 +1,24 @@
+mixin filter-item(title)
+    div(class="select-menu")
+        div(class="select-btn")
+            span(class="sBtn-text") #{title}
+            i(class="bx bx-chevron-down")
+        ul.options
+            li.option 
+                span.option-text Winter
+            li.option 
+                span.option-text Adventure
+            li.option 
+                span.option-text Education
+            li.option 
+                span.option-text Summer
+
+mixin checkbox-item(id, name, priceRange)
+    div.option 
+        input(
+            type="checkbox"
+            name=name
+            id=id
+        )
+        label(for=id)
+            span.option-text #{priceRange}

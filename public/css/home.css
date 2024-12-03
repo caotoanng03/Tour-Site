@@ -6,6 +6,16 @@
     --color-new-price: #ff6e5e;
 }
 
+.total-found {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: ccc;
+}
+
+.total-found i {
+    font-size: 1rem;
+}
+
 .tour-list .card {
     overflow: hidden;
     height: 320px;

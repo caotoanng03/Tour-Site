@@ -202,11 +202,26 @@ if (formUserProfileEdit) {
 $(document).ready(function () {
     $('#dateRangePicker').daterangepicker({
         locale: {
-            format: 'MMM D',
+            format: 'YYYY MMM D',
             separator: ' - ',
         },
+        minDate: new Date(),
         opens: 'right',
         autoUpdateInput: false,
+    });
+
+    // Add strikethrough to past dates
+    $('.daterangepicker').on('show.daterangepicker', function () {
+        const today = moment().startOf('day');
+
+        // Iterate over all calendar days
+        $('.calendar-table td.available').each(function () {
+            const date = moment($(this).attr('data-title'), 'M_D_YYYY');
+
+            if (date.isBefore(today)) {
+                $(this).addClass('past-date');
+            }
+        });
     });
 
     $('#calendarButton').on('click', function () {
@@ -215,16 +230,41 @@ $(document).ready(function () {
 
     // Update the input field when dates are selected
     $('#dateRangePicker').on('apply.daterangepicker', function (ev, picker) {
-        $(this).val(picker.startDate.format('MMM D') + ' - ' + picker.endDate.format('MMM D'));
+        $(this).val(picker.startDate.format('YYYY MMM D') + ' - ' + picker.endDate.format('YYYY MMM D'));
     });
 
     $('#dateRangePicker').on('cancel.daterangepicker', function () {
         $(this).val('');
     });
 });
-
-
-
 // End Search
+
+// Filter
+const optionMenus = document.querySelectorAll(".select-menu");
+if (optionMenus.length > 0) {
+    optionMenus.forEach(optionMenu => {
+        const selectBtn = optionMenu.querySelector(".select-btn");
+        const options = optionMenu.querySelectorAll(".option");
+        const sBtn_text = optionMenu.querySelector(".sBtn-text");
+
+        selectBtn.addEventListener("click", (e) => {
+            optionMenu.classList.toggle("active");
+        })
+
+        options.forEach(option => {
+            option.addEventListener("click", (e) => {
+                let selectedOption = option.querySelector(".option-text").innerText;
+                sBtn_text.innerText = selectedOption;
+                optionMenu.classList.add("selected")
+
+                optionMenu.classList.remove("active");
+            })
+        })
+
+    })
+}
+
+
+// End Filter
 
 

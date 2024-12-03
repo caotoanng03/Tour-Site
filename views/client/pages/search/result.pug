@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 include ../../mixins/box-head.pug
 include ../../mixins/list-tour.pug
+include ../../mixins/filter-item.pug
 
 block main
     +alert-error(5000)
@@ -9,8 +10,32 @@ block main
 
     .container.my-4 
         .row 
-            .col-12 
+            .col-12.heading
                 +box-head(pageTitle)
+        .row
+            .col-12
+                div(class="filter-group")
+                    +filter-item("Categories")
+                    div(class="select-menu")
+                        div(class="select-btn")
+                            span(class="sBtn-text") Prices
+                            i(class="bx bx-chevron-down")
+                        ul.options
+                            +checkbox-item("lowPrice", "priceRange", "0 - 15$")
+                            +checkbox-item("midPrice", "priceRange", "50 - 100$")
+                            +checkbox-item("highPrice", "priceRange", "> 100$")
+                    div(class="select-menu")
+                        div(class="select-btn")
+                            span(class="sBtn-text") Duration
+                            i(class="bx bx-chevron-down")
+                        ul.options
+                            +checkbox-item("shortHour", "priceRange", "0 - 3 hours")
+                            +checkbox-item("prettyShortHour", "priceRange", "3 - 5 hours")
+                            +checkbox-item("longHour", "priceRange", "5 - 8hours")
+                            +checkbox-item("prettyLongHour", "priceRange", "> 8 hours")
+        .row 
+            .col-12
+                .total-found #{searchTours.length} activities found <i class='bx bx-info-circle bx-spin' ></i>
 
         .row(class="tour-list")
             +grid-tours(searchTours)

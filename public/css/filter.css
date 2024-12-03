@@ -1,0 +1,88 @@
+:root {
+    --color-bg: #fff;
+    --color-box-shadow: rgba(0, 0, 0, 0, 1);
+    --color-option-hover: #589be2;
+}
+
+.filter-group {
+    margin-bottom: 1rem;
+    display: flex;
+    column-gap: 10px;
+}
+
+.filter-group .select-menu {
+    width: 8.5rem;
+}
+
+.select-menu .select-btn {
+    display: flex;
+    height: 2.5rem;
+    background: var(--color-bg);
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 5px var(--color-box-shadow);
+    cursor: pointer;
+}
+
+.select-menu.selected .select-btn {
+    border: 2px solid #1f3253;
+}
+
+.select-btn i {
+    font-size: 25px;
+    transition: transform 0.3s ease;
+}
+
+.select-menu.active .select-btn i {
+    transform: rotate(540deg);
+}
+
+.select-menu .options {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1000;
+    list-style-type: none;
+    margin-top: 10px;
+    box-shadow: 0 0 3px var(--color-box-shadow);
+    transition: all 0.5s ease;
+    z-index: 1000000;
+}
+
+.select-menu.active .options {
+    max-height: 800px;
+}
+
+.options .option {
+    border: none;
+    color: white;
+    width: 8.5rem;
+    display: flex;
+    height: 2.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0 10px;
+    align-items: center;
+    background: rgba(10, 10, 23, 0.3);
+    /* Semi-transparent background */
+    backdrop-filter: blur(30px);
+    /* Apply the blur effect */
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.options .option:hover {
+    background: var(--color-option-hover);
+}
+
+.option input[type="checkbox"] {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.option label {
+    margin-bottom: 0rem;
+}

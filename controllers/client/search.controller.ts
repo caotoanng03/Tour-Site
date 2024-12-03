@@ -9,19 +9,36 @@ export const search = async (req: Request, res: Response): Promise<void> => {
 
     let searchTours = [];
 
-    const keyword = req.query.keyword;
+    const { dateRange, keyword } = req.query;
     const type = req.params.type;
+
+
 
     if (keyword) {
         const slug = textUtils.convertToSlug(keyword);
 
+        const whereCondition = {
+            slug: { [Op.like]: `%${slug}%` },
+            deleted: false,
+        };
+
+        // handling date
+        if (dateRange) {
+            const [startDate, endDate] = dateRange.toString().split(' - ');
+            const startDateParsed = new Date(startDate);
+            const endDateParsed = new Date(endDate);
+
+            whereCondition['timeStart'] = {
+                [Op.between]: [startDateParsed, endDateParsed],
+            };
+        }
+
         const tours = await Tour.findAll({
-            where: {
-                slug: { [Op.like]: `%${slug}%` },
-                deleted: false
-            },
-            attributes: ['id', 'title', 'price', 'discount', 'images']
+            where: whereCondition,
+            attributes: ['id', 'title', 'price', 'discount', 'images', 'timeStart']
         });
+
+        console.log(tours[0])
 
         for (const tour of tours) {
             const discounted_price = numberHelper.formatNumber(Number(tour.dataValues.price * (1 - tour.dataValues.discount / 100)));
@@ -41,6 +58,8 @@ export const search = async (req: Request, res: Response): Promise<void> => {
         case "result":
             res.render(`client/pages/search/result.pug`, {
                 searchTours,
+                keyword,
+                dateRange,
                 pageTitle: `Results: "${keyword}"`
             })
             break;
