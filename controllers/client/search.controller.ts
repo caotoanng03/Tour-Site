@@ -12,8 +12,6 @@ export const search = async (req: Request, res: Response): Promise<void> => {
     const { dateRange, keyword } = req.query;
     const type = req.params.type;
 
-
-
     if (keyword) {
         const slug = textUtils.convertToSlug(keyword);
 
@@ -37,8 +35,6 @@ export const search = async (req: Request, res: Response): Promise<void> => {
             where: whereCondition,
             attributes: ['id', 'title', 'price', 'discount', 'images', 'timeStart']
         });
-
-        console.log(tours[0])
 
         for (const tour of tours) {
             const discounted_price = numberHelper.formatNumber(Number(tour.dataValues.price * (1 - tour.dataValues.discount / 100)));

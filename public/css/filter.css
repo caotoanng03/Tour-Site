@@ -11,12 +11,12 @@
 }
 
 .filter-group .select-menu {
-    width: 8.5rem;
+    width: 9rem;
 }
 
 .select-menu .select-btn {
     display: flex;
-    height: 2.5rem;
+    height: 2.3rem;
     background: var(--color-bg);
     padding: 10px;
     font-size: 0.8rem;
@@ -67,7 +67,7 @@
     cursor: pointer;
     padding: 0 10px;
     align-items: center;
-    background: rgba(10, 10, 23, 0.3);
+    background: rgba(10, 10, 23, 1);
     /* Semi-transparent background */
     backdrop-filter: blur(30px);
     /* Apply the blur effect */
