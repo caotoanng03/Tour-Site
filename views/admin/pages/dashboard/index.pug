@@ -2,7 +2,115 @@ extends ../../layouts/default.pug
 
 block main
 
-    h3(class="mb-4") Hello, #{admin.fullName}
+    h3(class="mb-4 pb-4") Hello, #{admin.fullName}
 
-    div #{JSON.stringify(admin, null, 2)}
-    div #{JSON.stringify(role, null, 2)}
+    div.container.mt-4
+
+        div.card.my-4
+            div.card-body.d-flex.align-items-center
+                img.rounded-circle.mr-3(
+                    style="width: 60px; height: 60px; object-fit: cover; background: #eee;", 
+                    src=(admin.avatar ? admin.avatar : "/images/default-admin.png"), 
+                    alt="Admin Avatar"
+                )
+                div
+                    h5.mb-1 #{admin.fullName}
+                    p.mb-0.text-muted #{admin.email} | #{admin.phone}
+                    span.badge.bg-primary #{role.title}
+
+        div.row.my-4
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Total Tours
+                        h3 #{totalTours}
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Total Categories
+                        h3 #{totalCategories}
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Total Orders
+                        h3 #{totalOrders}
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Total Revenue (HUF)
+                        h3 #{Number(totalRevenue).toFixed(2).toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} HUF
+        div.row.my-4
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Tours Status
+                        canvas#toursChart(width="200" height="200")
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Categories Status
+                        canvas#categoriesChart(width="200" height="200")
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Users Status
+                        canvas#usersChart(width="200" height="200")
+            div.col-md-3
+                div.card.text-center
+                    div.card-body
+                        h5.card-title Orders Status
+                        canvas#ordersChart(width="200" height="200")
+
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+
+    script.
+        document.addEventListener("DOMContentLoaded", function () {
+            function createPieChart(canvasId, labels, data, colors) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Tours Chart
+            createPieChart("toursChart", ['Active', 'Inactive'], 
+                [#{activeTours}, #{inactiveTours}], 
+                ['#36A2EB', '#FF6384']);
+
+            // Categories Chart
+            createPieChart("categoriesChart", ['Active', 'Inactive'], 
+                [#{activeCategories}, #{inactiveCategories}], 
+                ['#36A2EB', '#FF6384']);
+
+            // Users Chart
+            createPieChart("usersChart", ['Active', 'Inactive'], 
+                [#{activeUsers}, #{inactiveUsers}], 
+                ['#36A2EB', '#FF6384']);
+
+            // Orders Chart (Initial, Processing, Success, Failed)
+            createPieChart("ordersChart", ['Initial', 'Processing', 'Success', 'Failed'], 
+                [#{initialOrders}, #{processingOrders}, #{successOrders}, #{failedOrders}], 
+                ['#FFCE56', '#36A2EB', '#4CAF50', '#FF6384']);
+        });
+
+
+
+
+
+
+
